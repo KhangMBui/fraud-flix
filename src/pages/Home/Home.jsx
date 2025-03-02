@@ -6,31 +6,31 @@ function Home() {
     {
       title: "Trending Now",
       images: [
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
       ],
     },
     {
       title: "Popular on Netflix",
       images: [
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
       ],
     },
     {
       title: "Watch it again",
       images: [
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
-        "./../../../public/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
+        "/images/strangerThings.avif",
       ],
     },
     // Add more sections as needed
@@ -39,10 +39,7 @@ function Home() {
     <div className="pageContainer">
       <div className="navbar">
         <div className="navbarLeft">
-          <img
-            src="./../../../public/images/netflixlogo.png"
-            className="logo"
-          ></img>
+          <img src="/images/FraudflixLogo.png" className="logo"></img>
           <a>Home</a>
           <a>Series</a>
           <a>Movies</a>
