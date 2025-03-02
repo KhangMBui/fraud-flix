@@ -1,62 +1,91 @@
 import "./Home.css";
+import { useEffect, useRef } from "react";
 import { Search, BellFill, PersonFill } from "react-bootstrap-icons";
+import images from "../../assets/images";
 
 function Home() {
+  const scrollRefs = useRef([]);
+  const scrollIntervals = useRef([]);
+
+  useEffect(() => {
+    scrollRefs.current.forEach((container, index) => {
+      if (container) {
+        let scrollSpeed = 8; // Adjust scroll speed
+        let intervalId = null; // Store interval ID
+
+        const startScrolling = (direction) => {
+          stopScrolling(); // Stop any existing scrolling before starting a new one
+          intervalId = setInterval(() => {
+            container.scrollLeft += direction * scrollSpeed;
+          }, 30); // Adjust timing for smooth scrolling
+          scrollIntervals.current[index] = intervalId;
+        };
+
+        const stopScrolling = () => {
+          if (scrollIntervals.current[index]) {
+            clearInterval(scrollIntervals.current[index]);
+            scrollIntervals.current[index] = null;
+          }
+        };
+
+        const handleMouseMove = (event) => {
+          const { clientX } = event;
+          const { left, right, width } = container.getBoundingClientRect();
+
+          if (clientX < left + width * 0.1) {
+            // If mouse is at the left end, scroll left
+            startScrolling(-1);
+          } else if (clientX > right - width * 0.9) {
+            // If mouse is at the right end, scroll right
+            startScrolling(1);
+          } else {
+            stopScrolling(); // Stop scrolling when mouse is not at an edge
+          }
+        };
+
+        container.addEventListener("mousemove", handleMouseMove);
+        container.addEventListener("mouseleave", stopScrolling); // Stop when mouse leaves the container
+
+        return () => {
+          container.removeEventListener("mousemove", handleMouseMove);
+          container.removeEventListener("mouseleave", stopScrolling);
+          stopScrolling(); // Ensure no memory leaks
+        };
+      }
+    });
+  }, []);
   const sections = [
-    {
-      title: "Trending Now",
-      images: [
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-      ],
-    },
-    {
-      title: "Popular on Netflix",
-      images: [
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-      ],
-    },
-    {
-      title: "Watch it again",
-      images: [
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-        "/images/strangerThings.avif",
-      ],
-    },
-    // Add more sections as needed
+    { title: "Horror", images: images.horror },
+    { title: "Anime", images: images.anime },
+    { title: "Reality Shows", images: images.realityShows },
+    { title: "Action", images: images.action },
   ];
+
   return (
     <div className="pageContainer">
       <div className="navbar">
         <div className="navbarLeft">
           <img src="/images/FraudflixLogo.png" className="logo"></img>
-          <a>Home</a>
-          <a>Series</a>
-          <a>Movies</a>
+          <div className="navOption">
+            <a>Home</a>
+            <a>Series</a>
+            <a>Movies</a>
+          </div>
         </div>
         <div className="navbarRight">
-          {/* <a>User Options</a>
-          <a>User Options 2</a> */}
-          <Search size={20} color="white" />
-          <BellFill size={20} color="white" />
-          <PersonFill size={20} color="white" />
+          <Search size={22} color="white" />
+          <BellFill size={22} color="white" />
+          <PersonFill size={25} color="white" />
         </div>
       </div>
       <div className="pageContent">
         {sections.map((section, index) => (
           <div key={index} className="showsContainer">
             <h1 className="title">{section.title}</h1>
-            <div className="shows">
+            <div
+              ref={(el) => (scrollRefs.current[index] = el)}
+              className="shows"
+            >
               {section.images.map((image, imgIndex) => (
                 <img
                   key={imgIndex}
