@@ -1,6 +1,7 @@
 import "./Home.css";
 import { useEffect, useRef } from "react";
 import { Search, BellFill, PersonFill } from "react-bootstrap-icons";
+import Footer from "../../components/Footer/Footer";
 import images from "../../assets/images";
 
 function Home() {
@@ -73,9 +74,9 @@ function Home() {
           </div>
         </div>
         <div className="navbarRight">
-          <Search size={22} color="white" />
-          <BellFill size={22} color="white" />
-          <PersonFill size={25} color="white" />
+          <Search size={22} className="navbarButton" />
+          <BellFill size={22} className="navbarButton" />
+          <PersonFill size={25} className="navbarButton" />
         </div>
       </div>
       <div className="pageContent">
@@ -98,6 +99,7 @@ function Home() {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }
