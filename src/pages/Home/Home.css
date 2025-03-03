@@ -53,12 +53,26 @@
   font-weight: 300;
 }
 
+.navbar a:hover {
+  cursor: pointer;
+  color: #f24a01;
+}
+
 .navbarRight {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1.5vw;
   margin-left: 5vw;
+}
+
+.navbarButton {
+  color: white;
+}
+
+.navbarButton:hover {
+  cursor: pointer;
+  color: #f24a01;
 }
 
 .logo {
@@ -81,10 +95,19 @@
   gap: 2vh;
   margin-left: 3vw;
   margin-top: 3vh;
+  padding-bottom: 5vh;
 }
 
 .show {
   width: 20%;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.show:hover {
+  cursor: pointer;
+  transform: scale(1.1); /* Scale up on hover */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+  opacity: 0.8;
 }
 
 .shows {
