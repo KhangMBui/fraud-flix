@@ -37,15 +37,14 @@
   z-index: 1;
 }
 
-.logo {
-  position: fixed;
-  top: 75px;
-  right: 15px;
+.regLogo {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 15%;
-  width: 30%;
+  height: 25%;
+  width: 86%;
+  margin-bottom: 50px;
+  margin-left: 60px;
   z-index: 2;
 }
 
@@ -125,11 +124,11 @@ input.error {
     flex-direction: column;
   }
 
-  .logo, .registration {
+  .regLogo, .registration {
     width: 100%;
   }
 
-  .logo {
+  .regLogo {
     padding: 40px 0;
   }
 }

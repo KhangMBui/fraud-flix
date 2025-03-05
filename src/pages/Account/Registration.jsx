@@ -82,7 +82,7 @@ function Registration() {
         <div className="registration">
           <div className="regTopSpace"></div>
           <form onSubmit={submissionHandler}>
-            <img src="/images/FraudflixLogo.png" className="logo"></img>
+            <img src="/images/FraudflixLogo.png" className="regLogo"></img>
             <div className="registrationCred">
               <input
                 type="email"
