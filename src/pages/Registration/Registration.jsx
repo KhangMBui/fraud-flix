@@ -16,7 +16,7 @@ function Registration() {
   const [formData, setFormData] = useState({
     email: "",
     username: "",
-    password: ""
+    password: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -26,7 +26,7 @@ function Registration() {
    * @param {*} e Input event.
    */
   const inputEvent = (e) => {
-  const { name, value } = e.target;
+    const { name, value } = e.target;
     setFormData({
       formData,
       [name]: value,
@@ -42,9 +42,9 @@ function Registration() {
     // email validation
     if (!formData.email) {
       invalid.email = "*Required field";
-    // check for email format
+      // check for email format
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      invalid.email = "Invalid entry"
+      invalid.email = "Invalid entry";
     }
     // username validation
     if (!formData.username) {
@@ -56,7 +56,8 @@ function Registration() {
     if (!formData.password) {
       invalid.password = "*Required field";
     } else if (formData.password.length < 12 || formData.password.length > 60) {
-      invalid.password = "Password length cannot be less than 12 characters or exceed 60 characters";
+      invalid.password =
+        "Password length cannot be less than 12 characters or exceed 60 characters";
     }
     setErrors(invalid);
     return Object.keys(invalid).length === 0;
@@ -64,7 +65,7 @@ function Registration() {
 
   /**
    * Event handler for registration submission.
-   * - For now, this only redirects the user to login upon invokation of the "Submit" button. 
+   * - For now, this only redirects the user to login upon invokation of the "Submit" button.
    *   This is will be added to in the future once backend logic is implemented.
    * @param {*} e Button-click event.
    */
@@ -80,7 +81,7 @@ function Registration() {
     <div className="registrationContainer">
       <div className="registrationContent">
         <div className="registration">
-          <div className="regTopSpace"></div>
+          {/* <div className="regTopSpace"></div> */}
           <form onSubmit={submissionHandler}>
             <img src="/images/FraudflixLogo.png" className="regLogo"></img>
             <div className="registrationCred">
@@ -103,7 +104,9 @@ function Registration() {
                 onChange={inputEvent}
                 className={errors.username ? "error" : ""}
               />
-              {errors.username && <span className="response">{errors.username}</span>}
+              {errors.username && (
+                <span className="response">{errors.username}</span>
+              )}
             </div>
             <div className="registrationCred">
               <input
@@ -114,7 +117,9 @@ function Registration() {
                 onChange={inputEvent}
                 className={errors.password ? "error" : ""}
               />
-              {errors.password && <span className="response">{errors.password}</span>}
+              {errors.password && (
+                <span className="response">{errors.password}</span>
+              )}
             </div>
             <button type="submit" className="submissionButton">
               Create Account
@@ -122,11 +127,10 @@ function Registration() {
           </form>
           <div className="loginLink">
             <p>
-              I Already Have an Account{" "}
-              <Link 
-              to="/login"
-              className="clickLogin"
-              >Login</Link>
+              Already Have an Account?{" "}
+              <Link to="/login" className="clickLogin">
+                Login
+              </Link>
             </p>
           </div>
         </div>
