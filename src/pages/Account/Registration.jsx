@@ -1,5 +1,5 @@
 /**
- * Account Registration Page.
+ * Account Registration Page, instructs a user to register an email with a valid username and password.
  */
 
 import { useState } from "react";
