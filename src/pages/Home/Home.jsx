@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { Search, BellFill, PersonFill } from "react-bootstrap-icons";
 import Footer from "../../components/Footer/Footer";
 import images from "../../assets/images";
+import { Link } from "react-router-dom";
 
 function Home() {
   const scrollRefs = useRef([]);
@@ -77,6 +78,7 @@ function Home() {
           <Search size={22} className="navbarButton" />
           <BellFill size={22} className="navbarButton" />
           <PersonFill size={25} className="navbarButton" />
+          <Link to="/Registration" className="regLink">Registration</Link>
         </div>
       </div>
       <div className="pageContent">

@@ -75,6 +75,18 @@
   color: #f24a01;
 }
 
+.regLink {
+  color: white;
+  text-decoration: none;
+  font-weight: 300;
+  transition: color 0.3s ease;
+}
+
+.regLink:hover {
+  cursor: pointer;
+  color: #f24a01;
+}
+
 .logo {
   width: 8%;
   height: auto;

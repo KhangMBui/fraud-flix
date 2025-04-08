@@ -1,0 +1,134 @@
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("../../assets/fonts/Netflix-Sans-Light.otf") format("opentype");
+  font-weight: 300; /* Light */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("../../assets/fonts/Netflix-Sans-Medium.otf") format("opentype");
+  font-weight: 500; /* Medium */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("../../assets/fonts/Netflix-Sans-Bold.otf") format("opentype");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+}
+
+.registrationContainer {
+  display: flex;
+  justify-content: flex-end;
+  height: 700px;
+  background-color: #242424;
+  font-family: "Netflix Sans", sans-serif;
+  position: relative;
+}
+
+.registrationContent {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  margin-right: 10px;
+  align-items: center;
+  z-index: 1;
+}
+
+.regLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25%;
+  width: 86%;
+  margin-bottom: 50px;
+  margin-left: 60px;
+  z-index: 2;
+}
+
+.registration {
+  width: 100%;
+  Height: 100%;
+  background-color: rgba(113, 84, 84, 0.505);
+  padding: 40px;
+  border-radius: 240px 0 0 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 500px;
+}
+
+.regTopSpace {
+  height: 390px;
+}
+
+.registrationCred {
+  height: 110px;
+  margin-bottom: 1px;
+}
+
+input {
+  width: 80%;
+  padding: 12px;
+  background-color: #333;
+  border: none;
+  border-radius: 0px;
+  color: white;
+  font-size: 24px;
+  height: 30px;
+  margin-left: 65px;
+}
+
+input.error {
+  border: 1px solid #f24a01;
+}
+
+.response {
+  color: #f24a01;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+}
+
+.submissionButton {
+  width: 50%;
+  padding: 12px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  vertical-align: bottom;
+  margin-left: 145px;
+}
+
+.loginLink {
+  margin-top: 20px;
+  margin-left: 25px;
+  text-align: center;
+  vertical-align: bottom;
+  color: #bbb;
+}
+
+.clickLogin {
+  color: #f24a01;
+  text-decoration: none;
+}
+
+@media (max-width: 500px) {
+  .registrationContent {
+    flex-direction: column;
+  }
+
+  .regLogo, .registration {
+    width: 100%;
+  }
+
+  .regLogo {
+    padding: 40px 0;
+  }
+}
