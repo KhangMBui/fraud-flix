@@ -5,6 +5,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 /**
  * Function to handle the user account Login with creation of username, email, and password.
@@ -15,7 +17,6 @@ function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
-    username: "",
     password: "",
   });
 
@@ -28,7 +29,7 @@ function Login() {
   const inputEvent = (e) => {
     const { name, value } = e.target;
     setFormData({
-      formData,
+      ...formData,
       [name]: value,
     });
   };
@@ -46,18 +47,12 @@ function Login() {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       invalid.email = "Invalid entry";
     }
-    // username validation
-    if (!formData.username) {
-      invalid.username = "*Required field";
-    } else if (formData.username.length < 1 || formData.username.length > 16) {
-      invalid.username = "Username length cannot exceed 16 characters";
-    }
     // password validation
     if (!formData.password) {
       invalid.password = "*Required field";
-    } else if (formData.password.length < 12 || formData.password.length > 60) {
+    } else if (formData.password.length < 10 || formData.password.length > 60) {
       invalid.password =
-        "Password length cannot be less than 12 characters or exceed 60 characters";
+        "Password length cannot be less than 10 characters or exceed 60 characters";
     }
     setErrors(invalid);
     return Object.keys(invalid).length === 0;
@@ -69,11 +64,45 @@ function Login() {
    *   This is will be added to in the future once backend logic is implemented.
    * @param {*} e Button-click event.
    */
-  const submissionHandler = (e) => {
+  const submissionHandler = async (e) => {
     // prevents event handling if input fields are left unsatisfied.
     e.preventDefault();
     if (validate()) {
-      navigate("/login");
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/login",
+          {
+            email: formData.email,
+            password: formData.password,
+          }
+        );
+        if (response.status === 200) {
+          // Show a success alert when registration is successful
+          Swal.fire({
+            icon: "success",
+            title: "Login Successful",
+            text: "You have successfully logged in! Enjoy the goooooooood time!",
+          }).then(() => {
+            // Navigate to the home page after the success alert
+            navigate("/home");
+          });
+        }
+      } catch (err) {
+        // Handle error response from the backend using SweetAlert2
+        if (err.response && err.response.data) {
+          Swal.fire({
+            icon: "error",
+            title: "Login Failed",
+            text: `Login failed. Error: ${err.response.data.error}`,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Something went wrong",
+            text: "Please try again later.",
+          });
+        }
+      }
     }
   };
 
@@ -83,7 +112,7 @@ function Login() {
         <div className="login">
           {/* <div className="regTopSpace"></div> */}
           <form onSubmit={submissionHandler}>
-            <img src="/images/FraudflixLogo.png" className="regLogo"></img>
+            <img src="/images/FraudflixLogo.png" className="loginLogo"></img>
             <div className="loginCred">
               <input
                 type="email"
