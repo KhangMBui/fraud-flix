@@ -4,7 +4,6 @@ import { Search, BellFill, PersonFill } from "react-bootstrap-icons";
 import Footer from "../../components/Footer/Footer";
 import images from "../../assets/images";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 function Home() {
   const scrollRefs = useRef([]);
