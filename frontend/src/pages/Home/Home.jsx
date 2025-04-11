@@ -4,6 +4,7 @@ import { Search, BellFill, PersonFill } from "react-bootstrap-icons";
 import Footer from "../../components/Footer/Footer";
 import images from "../../assets/images";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Home() {
   const scrollRefs = useRef([]);
@@ -56,12 +57,26 @@ function Home() {
       }
     });
   }, []);
+
+  // const getCurrentUsername = async () => {
+  //   const token = localStorage.getItem("token");
+  //   const response = await axios.get("http://localhost:5000/api/auth/me", {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  //   console.log("Username: ", response.data.username);
+  //   return response.data.username;
+  // };
+
   const sections = [
     { title: "Horror", images: images.horror },
     { title: "Anime", images: images.anime },
     { title: "Reality Shows", images: images.realityShows },
     { title: "Action", images: images.action },
   ];
+
+  const username = localStorage.getItem("username");
 
   return (
     <div className="pageContainer">
@@ -84,6 +99,10 @@ function Home() {
             Registration
           </Link>
         </div>
+      </div>
+      <div className="welcome-text">
+        <span className="welcome-label">Welcome, </span>
+        <span className="username">{username}</span>
       </div>
       <div className="pageContent">
         {sections.map((section, index) => (

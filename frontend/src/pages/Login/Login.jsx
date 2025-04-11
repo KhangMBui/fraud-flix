@@ -83,6 +83,10 @@ function Login() {
             title: "Login Successful",
             text: "You have successfully logged in! Enjoy the goooooooood time!",
           }).then(() => {
+            localStorage.setItem("token", response.data.token);
+            // Optionally store username/email if needed
+            localStorage.setItem("username", response.data.user.username);
+            console.log(localStorage);
             // Navigate to the home page after the success alert
             navigate("/home");
           });

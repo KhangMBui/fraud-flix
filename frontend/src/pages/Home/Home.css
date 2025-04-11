@@ -58,6 +58,25 @@
   color: #f24a01;
 }
 
+.welcome-text {
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  background-color: #1a1a1a; /* dark flag bg */
+  border-left: 5px solid #f24a01; /* flagpole vibe */
+  border-radius: 4px;
+  display: inline-block;
+  margin: 30px 13px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-label {
+  color: white;
+}
+
+.username {
+  color: #f24a01;
+  font-weight: 500;
+}
 .navbarRight {
   display: flex;
   flex-direction: row;
@@ -106,7 +125,7 @@
   flex-direction: column;
   gap: 2vh;
   margin-left: 3vw;
-  margin-top: 3vh;
+  margin-top: -3vh;
   padding-bottom: 5vh;
 }
 
