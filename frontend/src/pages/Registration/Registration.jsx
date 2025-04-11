@@ -57,9 +57,9 @@ function Registration() {
     // password validation
     if (!formData.password) {
       invalid.password = "*Required field";
-    } else if (formData.password.length < 12 || formData.password.length > 60) {
+    } else if (formData.password.length < 10 || formData.password.length > 60) {
       invalid.password =
-        "Password length cannot be less than 12 characters or exceed 60 characters";
+        "Password length cannot be less than 10 characters or exceed 60 characters";
     }
     setErrors(invalid);
     return Object.keys(invalid).length === 0;
