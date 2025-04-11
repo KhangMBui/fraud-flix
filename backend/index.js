@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const sequelize = require("./config/database");
+// const sequelize = require("./config/database");
+const db = require("./models"); // this grabs the whole models/index.js
 const userRoutes = require("./routes/userRoutes");
 
 const app = express();
@@ -16,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
 // Sync DB and start server
-sequelize
+db.sequelize
   .sync({ alter: true })
   .then(() => {
     console.log("✅ Database synced");
@@ -27,3 +28,6 @@ sequelize
   .catch((err) => {
     console.log("Error syncing database: ", err);
   });
+
+// You can now access models like:
+const { User, Movie, Genre, WatchHistory } = db;

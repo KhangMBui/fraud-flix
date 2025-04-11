@@ -5,6 +5,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Registration.css";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 /**
  * Function to handle the user account registration with creation of username, email, and password.
@@ -28,7 +30,7 @@ function Registration() {
   const inputEvent = (e) => {
     const { name, value } = e.target;
     setFormData({
-      formData,
+      ...formData,
       [name]: value,
     });
   };
@@ -69,11 +71,47 @@ function Registration() {
    *   This is will be added to in the future once backend logic is implemented.
    * @param {*} e Button-click event.
    */
-  const submissionHandler = (e) => {
+  const submissionHandler = async (e) => {
     // prevents event handling if input fields are left unsatisfied.
     e.preventDefault();
     if (validate()) {
-      navigate("/login");
+      try {
+        // Send POST request to the backend for registration
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/register",
+          {
+            email: formData.email,
+            username: formData.username,
+            password: formData.password,
+          }
+        );
+        if (response.status === 201) {
+          // Show a success alert when registration is successful
+          Swal.fire({
+            icon: "success",
+            title: "Registration Successful",
+            text: "You have successfully registered! You can now log in.",
+          }).then(() => {
+            // Navigate to the login page after the success alert
+            navigate("/login");
+          });
+        }
+      } catch (err) {
+        // Handle error response from the backend using SweetAlert2
+        if (err.response && err.response.data) {
+          Swal.fire({
+            icon: "error",
+            title: "Registration Failed",
+            text: `Registration failed. Error: ${err.response.data.error}`,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Something went wrong",
+            text: "Please try again later.",
+          });
+        }
+      }
     }
   };
 
@@ -113,7 +151,7 @@ function Registration() {
                 type="password"
                 name="password"
                 placeholder="Enter your password..."
-                value={formData.username}
+                value={formData.password}
                 onChange={inputEvent}
                 className={errors.password ? "error" : ""}
               />
