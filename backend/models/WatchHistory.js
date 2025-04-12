@@ -36,6 +36,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
+
+      // amount of movie/episode user has watched
+      lengthWatched: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+
+      // marks a movie/episode as having been watched all the way through by the user
+      isFinished: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
     },
     {
       tableName: "WatchHistory", // Enforce exact table name
