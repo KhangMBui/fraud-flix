@@ -19,8 +19,30 @@ module.exports = (sequelize, DataTypes) => {
       description: {
         type: DataTypes.TEXT,
       },
+
+      // Show's releast date
       releaseDate: {
         type: DataTypes.DATE,
+        allowNull: true,
+      },
+
+      length: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+
+      director: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+
+      rating: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+        validate: {
+          min: 0,
+          max: 10
+        }
       },
 
       // ID of genre table, referring to Action, Comedy, Drama, Horror, etc.
