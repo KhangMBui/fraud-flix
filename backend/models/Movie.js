@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
 
+      thumbnail: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+
       // Show's releast date
       releaseDate: {
         type: DataTypes.DATE,
