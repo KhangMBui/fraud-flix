@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
 
+      // movie/show-episode thumbnail image
       thumbnail: {
         type: DataTypes.STRING,
         allowNull: true
@@ -31,16 +32,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
 
+      // duration of movie/episode
       length: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
 
+      // directory of movie/episode
       director: {
         type: DataTypes.STRING,
         allowNull: true,
       },
 
+      // audience rating on a 0-10 scale
       rating: {
         type: DataTypes.FLOAT,
         allowNull: true,
