@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
+
+      // Genre's description
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      }
     },
     {
       tableName: "Genres", // Enforce exact table name
