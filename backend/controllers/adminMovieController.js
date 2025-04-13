@@ -1,4 +1,3 @@
-const e = require("express");
 const { Movie, Genre } = require("../models");
 const { Op } = require("sequelize");
 
