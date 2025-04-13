@@ -22,7 +22,7 @@ exports.getGenres = async (req, res) => {
  * @param {*} req http request.
  * @param {*} res http response.
  */
-exports.getGenredByID = async (req, res) => {
+exports.getGenreByID = async (req, res) => {
   try {
     const { id } = req.params;
     const genre = await Genre.findByPk(id, {
