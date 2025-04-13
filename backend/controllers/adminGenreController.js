@@ -5,7 +5,7 @@ const { Genre, Movie } = require("../models");
  * @param {*} req http request.
  * @param {*} res http response.
  */
-exports.getGrenres = async (req, res) => {
+exports.getGenres = async (req, res) => {
   try {
     // retrieve all genres by alphabetical order
     const genres = await Genre.findAll({
