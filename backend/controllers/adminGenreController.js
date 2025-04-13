@@ -1,0 +1,1 @@
+const { Genre, Movie } = require("../models");
