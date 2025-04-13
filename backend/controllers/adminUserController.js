@@ -38,3 +38,40 @@ exports.getUsers = async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 };
+
+/**
+ * Updates a user's status to or from the administrator role.
+ * @param {*} req http request.
+ * @param {*} res http response.
+ */
+exports.updateUserType = async (req, res) => {
+  try {
+    const { userID } = req.params;
+    const { isAdmin } = req.body;
+    // prevents a user with a standard role from promoting themselves to admin
+    if (userID === req.user.id) {
+      return res.status(403).json({ error: "Action Requires Admin Priveleges!" });
+    }
+    // find a user via id
+    const user = await User.findByPk(userID);
+    // throw an error if the user id does not exist
+    if (!user) {
+      return res.status(404).json({ error: "Could Not Find Requested User!" });
+    }
+    // based on the status of the user the function is being called on, change their status to either admin or standard
+    user.isAdmin = !!isAdmin;
+    await user.save();
+    res.status(200).json({
+      message: `User ${isAdmin ? 'rank updated to Administrator role' : 'rank updated to standard role'}`,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        isAdmin: user.isAdmin
+      }
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
