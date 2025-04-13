@@ -2,7 +2,7 @@ const { Movie, Genre } = require("../models");
 const { Op } = require("sequelize");
 
 /**
- * Retrieves all movies.
+ * Retrieves all movies/shows.
  * @param {*} req http request.
  * @param {*} res http response.
  */
@@ -46,7 +46,7 @@ exports.getMovies = async (req, res) => {
 };
 
 /**
- * Finds and retrieves a movie by ID.
+ * Finds and retrieves media content by ID.
  * @param {*} req http request.
  * @param {*} res http response.
  */
@@ -57,7 +57,7 @@ exports.getMovieByID = async (req, res) => {
       include: [{ model: Genre }]
     });
     if (!movie) {
-      return res.status(404).json({ error: "Could Not Find Requested Movie!" });
+      return res.status(404).json({ error: "Could Not Find Requested Content!" });
     }
     res.status(200).json(movie);
   } catch (e) {
@@ -88,7 +88,7 @@ exports.updateMovie = async (req, res) => {
     // retrieve movie by id
     const movie = await Movie.findByPk(id);
     if (!movie) {
-      return res.status(404).json({ error: "Could Not Find Requested Movie!" });
+      return res.status(404).json({ error: "Could Not Find Requested Content!" });
     }
 
     // field updates for selected content
@@ -112,6 +112,26 @@ exports.updateMovie = async (req, res) => {
       message: "Content Updated!",
       movie: updateMovie
     });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
+/**
+ * Deletes selected content.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+exports.deleteMovie = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const movie = await Movie.findByPk(id);
+    if (!movie) {
+      return res.status(404).json({ error: "Could Not Find Requested Content!" });
+    }
+    await movie.destroy();
+    res.status(200).json({ message: "Content Deleted!" });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
