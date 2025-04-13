@@ -75,3 +75,22 @@ exports.updateUserType = async (req, res) => {
   }
 };
 
+/**
+ * Deletes a user's account by id.
+ * @param {*} req http request.
+ * @param {*} res http response.
+ */
+exports.deleteUser = async (req, res) => {
+  try {
+    const { userID } = req.params;
+    // find a user via id
+    const user = await User.findByPk(userID);
+    if (!user) {
+      return res.status(404).json({ error: "Could Not Find Requested User!" });
+    }
+    await user.destroy();
+    res.status(200).json({ message: "User Deleted!" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
