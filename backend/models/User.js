@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define("User", {
-
     // assigned user id
     id: {
       type: DataTypes.UUID,
@@ -27,12 +26,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
 
-    // check if user has administrative priveleges
+    // check if user has administrative privileges
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false,
-    }
+    },
   });
 
   return User;
