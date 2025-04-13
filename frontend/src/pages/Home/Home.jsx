@@ -1,14 +1,21 @@
 import "./Home.css";
-import { useEffect, useRef } from "react";
-import { Search, BellFill, PersonFill } from "react-bootstrap-icons";
+import { useEffect, useRef, useState } from "react";
+import {
+  Search,
+  BellFill,
+  PersonFill,
+  BoxArrowRight,
+  BoxArrowLeft,
+} from "react-bootstrap-icons";
 import Footer from "../../components/Footer/Footer";
 import images from "../../assets/images";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const scrollRefs = useRef([]);
   const scrollIntervals = useRef([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     scrollRefs.current.forEach((container, index) => {
@@ -58,6 +65,18 @@ function Home() {
     });
   }, []);
 
+  // Effect to check if logged in:
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    setIsLoggedIn(false);
+    navigate("/Login");
+  };
   // const getCurrentUsername = async () => {
   //   const token = localStorage.getItem("token");
   //   const response = await axios.get("http://localhost:5000/api/auth/me", {
@@ -90,14 +109,29 @@ function Home() {
           </div>
         </div>
         <div className="navbarRight">
-          <Link to="/Search">
+          <Link to="/Search" title="Search">
             <Search size={22} className="navbarButton" />
           </Link>
-          <BellFill size={22} className="navbarButton" />
-          <PersonFill size={25} className="navbarButton" />
-          <Link to="/Registration" className="regLink">
-            Registration
-          </Link>
+          <BellFill size={22} className="navbarButton" title="Notifications" />
+          <PersonFill size={25} className="navbarButton" title="Profile" />
+          <div className="auth-option">
+            {isLoggedIn ? (
+              <BoxArrowRight
+                onClick={handleLogout}
+                size={23}
+                className="navbarButton"
+                title="Logout"
+              />
+            ) : (
+              <Link to="/Login" className="register-link">
+                <BoxArrowLeft
+                  size={23}
+                  className="navbarButton"
+                  title="Login"
+                />
+              </Link>
+            )}
+          </div>
         </div>
       </div>
       <div className="welcome-text">
