@@ -2,7 +2,7 @@ import { readFile } from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
-
+import db from "../models/index.js";
 // Load env vars
 dotenv.config();
 
@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Sequelize modeL:
-import db from "../models/index.js";
+
 const Genre = db.Genre;
 
 async function importGenres() {
@@ -23,12 +23,13 @@ async function importGenres() {
     console.log("Importing genres");
     // Loop through and insert each genre
     for (const [id, name] of Object.entries(genreMap)) {
-      await Genre.findOrCreate({
-        where: { tmdbId: id },
-        defaults: {
-          name,
-        },
+      // Create or update genre with tmdbId
+      await Genre.create({
+        name: name,
+        tmdbId: id, // tmdbId is the key in genre map
       });
+
+      console.log(`✅ Imported genre: ${name}`);
     }
     console.log("🎉 All genres imported!");
   } catch (err) {

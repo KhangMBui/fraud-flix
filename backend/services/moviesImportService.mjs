@@ -2,6 +2,7 @@ import { readFile } from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import db from "../models/index.js";
 
 // Load env vars
 dotenv.config();
@@ -11,8 +12,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Sequelize modeL:
-import db from "../models/index.js";
-const Movie = db.Movie;
+// const Movie = db.Movie;
+const { Movie, Genre } = db; // Destructure the models
 
 async function importMovies() {
   try {
@@ -22,14 +23,27 @@ async function importMovies() {
 
     console.log("Importing movies");
     for (const m of movies) {
-      await Movie.create({
+      const movie = await Movie.create({
         title: m.title,
         description: m.overview,
         thumbnail: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
         releaseDate: m.release_date ? new Date(m.release_date) : null,
-        length: null,
-        director: null,
+        length: null, // Placeholder as there's no data in movies.json
+        director: null, // Placeholder as there's no data in movies.json
       });
+
+      console.log(`Looking up genres for movie: ${m.title}`);
+      console.log(`Movie genre_ids: ${m.genre_ids}`);
+
+      // Find genres based on genre_ids (match by tmdbId, or whatever unique identifier you have)
+      // Map TMDB genre_ids to Genre UUIDs
+      const genres = await Genre.findAll({
+        where: { tmdbId: m.genre_ids },
+      });
+
+      // Set genres in the join table
+      await movie.setGenres(genres);
+
       console.log(`✅ Imported: ${m.title}`);
     }
     console.log("🎉 All movies imported!");
