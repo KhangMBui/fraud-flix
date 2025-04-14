@@ -35,9 +35,7 @@ async function importMovies() {
     console.log("🎉 All movies imported!");
   } catch (err) {
     console.error("Failed to import movies: ", err);
-  } finally {
-    await db.sequelize.close();
   }
 }
 
-importMovies();
+export default importMovies;

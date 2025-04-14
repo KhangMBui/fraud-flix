@@ -17,7 +17,7 @@ router.get("/movies/:id", adminMovieController.getMovieByID);
 router.get("/movies/:id", adminMovieController.updateMovie);
 router.get("/movies/:id", adminMovieController.deleteMovie);
 router.get("/genres", adminGenreController.getGenres);
-router.get("/genres/:id", genreAdminController.getGenreByID);
+router.get("/genres/:id", adminGenreController.getGenreByID);
 router.get("/genres/:id", adminGenreController.updateGenre);
 
-modules.exports = router;
+module.exports = router;
