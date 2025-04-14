@@ -82,17 +82,6 @@ function Home() {
     fetchMovies();
   }, []);
 
-  useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/movies/genres");
-        console.log("Fetched Genres:", response.data); // Log the fetched genres
-      } catch (err) {
-        console.error("Failed to fetch genres:", err);
-      }
-    };
-    fetchGenres();
-  })
 
 
   // Load movies from movies.json

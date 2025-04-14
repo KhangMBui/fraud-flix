@@ -31,11 +31,12 @@ exports.getAllMovies = async (req, res) => {
 
   try {
     const movies = await Movie.findAll({
-      where: {
-        title: {
-          [Op.ne]: null, // Ensure title is not null
+      include: [
+        {
+          model: Genre, // Include the Genre model
+          through: { attributes: [] }, // Exclude attributes from the join table (MovieGenre)
         },
-      },
+      ],
       limit: 1000
     });
     console.log("Movies fetched from database:", movies); // Log the movies
@@ -46,14 +47,3 @@ exports.getAllMovies = async (req, res) => {
   }
 };
 
-exports.getGenres = async (req, res) => {
-  try {
-    // retrieve all genres by alphabetical order
-    const genres = await Genre.findAll({
-      sortBy: [['name', 'ASC']]
-    });
-    res.status(200).json(genres);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-};
