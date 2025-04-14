@@ -33,9 +33,7 @@ async function importGenres() {
     console.log("🎉 All genres imported!");
   } catch (err) {
     console.error("Failed to import genres: ", err);
-  } finally {
-    await db.sequelize.close();
   }
 }
 
-importGenres();
+export default importGenres;

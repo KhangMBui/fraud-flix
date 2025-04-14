@@ -16,8 +16,9 @@ exports.getDashboardStats = async (req, res) => {
       allUsers,
       allMovies,
       allGenres,
-      moviesWatched
+      moviesWatched,
     });
+    console.log(res);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -31,7 +32,7 @@ exports.getDashboardStats = async (req, res) => {
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'email', 'password', 'username', 'isAdmin']
+      attributes: ["id", "email", "password", "username", "isAdmin"],
     });
     res.status(200).json(users);
   } catch (e) {
@@ -50,7 +51,9 @@ exports.updateUserType = async (req, res) => {
     const { isAdmin } = req.body;
     // prevents a user with a standard role from promoting themselves to admin
     if (userID === req.user.id) {
-      return res.status(403).json({ error: "Action Requires Admin Priveleges!" });
+      return res
+        .status(403)
+        .json({ error: "Action Requires Admin Privileges!" });
     }
     // find a user via id
     const user = await User.findByPk(userID);
@@ -62,13 +65,17 @@ exports.updateUserType = async (req, res) => {
     user.isAdmin = !!isAdmin;
     await user.save();
     res.status(200).json({
-      message: `User ${isAdmin ? 'rank updated to Administrator role' : 'rank updated to standard role'}`,
+      message: `User ${
+        isAdmin
+          ? "rank updated to Administrator role"
+          : "rank updated to standard role"
+      }`,
       user: {
         id: user.id,
         username: user.username,
         email: user.email,
-        isAdmin: user.isAdmin
-      }
+        isAdmin: user.isAdmin,
+      },
     });
   } catch (e) {
     res.status(500).json({ error: e.message });

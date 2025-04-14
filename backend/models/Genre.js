@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
 
+      //Genre's tmdbId
+      tmdbId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+      },
+
       // Genre's name
       name: {
         type: DataTypes.STRING,
@@ -20,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       description: {
         type: DataTypes.TEXT,
         allowNull: true,
-      }
+      },
     },
     {
       tableName: "Genres", // Enforce exact table name

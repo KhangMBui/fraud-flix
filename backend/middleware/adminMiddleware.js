@@ -15,9 +15,11 @@ const verifyIsAdmin = (req, res, next) => {
   }
   // then check that the user request has admin privileges.
   if (!req.user.isAdmin) {
-    return res.status(403).json({ error: "Must Have Administrator Priveleges!" });
+    return res.status(403).json({
+      error: "Must Have Administrator Privileges!",
+    });
   }
-  next()
-}
+  next();
+};
 
 module.exports = verifyIsAdmin;
