@@ -8,7 +8,7 @@ dotenv.config();
 const API_KEY = process.env.TMDB_API_KEY;
 const API_URL =
   "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc";
-const TOTAL_PAGES = 50; // Adjust as needed
+const TOTAL_PAGES = 500; // Adjust as needed
 
 const options = {
   method: "GET",
@@ -49,7 +49,7 @@ async function saveMovies() {
 
   const enrichedMovies = await enrichMoviesWithGenres(movies, genreMap);
 
-  await writeFile("movies.json", JSON.stringify(enrichedMovies, null, 2));
+  await writeFile("movies500.json", JSON.stringify(enrichedMovies, null, 2));
   console.log("Movies saved to movies2.json with genre names.");
 }
 

@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import "./SearchPage.css";
 import Footer from "../../components/Footer/Footer";
 import { Trash3Fill, Recycle, Search } from "react-bootstrap-icons";
+import axios from "axios";
 
 function SearchPage() {
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
   const [history, setHistory] = useState([]);
   const [hasLoaded, setHasLoaded] = useState(false);
+  // const [error, setError] = useState("");
 
   // Load from localStorage
   useEffect(() => {
@@ -24,16 +27,38 @@ function SearchPage() {
     }
   }, [history, hasLoaded]);
 
-  const handleSearch = () => {
-    const trimmed = query.trim();
-    if (!trimmed) return;
+  const handleSearch = async (customQuery) => {
+    const searchQuery = (customQuery || query).trim();
+    if (!searchQuery) return;
 
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/movies/search?q=${encodeURIComponent(
+          searchQuery
+        )}`
+      );
+      setResults(response.data);
+
+      // Update history if new
+      if (!history.includes(searchQuery)) {
+        setHistory((prev) => [searchQuery, ...prev.slice(0, 20)]); // Limit to 10 entries
+      }
+    } catch (err) {
+      console.error("Search failed: ", err);
+      // setError("Failed to fetch search results. Please try again.");
+    }
     setHistory((prev) => {
-      const updated = [trimmed, ...prev.filter((item) => item !== trimmed)];
+      const updated = [
+        searchQuery,
+        ...prev.filter((item) => item !== searchQuery),
+      ];
       return updated.slice(0, 20);
     });
+  };
 
-    setQuery("");
+  const handleHistoryClick = (item) => {
+    setQuery(item);
+    handleSearch(item);
   };
 
   const handleDelete = (itemToDelete) => {
@@ -56,7 +81,10 @@ function SearchPage() {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
-            <button className="searchButton" onClick={handleSearch}>
+            <button
+              className="searchButton"
+              onClick={() => handleSearch(query)}
+            >
               <Search className="icon" />
               Find It!
             </button>
@@ -71,11 +99,18 @@ function SearchPage() {
             </div>
             <ul>
               {history.map((item, index) => (
-                <li key={index} className="historyItem">
+                <li
+                  key={index}
+                  onClick={() => handleHistoryClick(item)} // Only triggers when clicking the <li>, not the button
+                  className="historyItem"
+                >
                   <span>{item}</span>
                   <button
                     className="deleteHistoryButton"
-                    onClick={() => handleDelete(item)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent the click event from bubbling up to the <li>
+                      handleDelete(item);
+                    }}
                   >
                     <Trash3Fill className="icon" />
                   </button>
@@ -85,7 +120,13 @@ function SearchPage() {
           </div>
         </div>
 
-        <div className="movieContainer"></div>
+        <div className="movieContainer">
+          {results.map((movie) => (
+            <div className="movieCard" key={movie.id}>
+              <img src={movie.thumbnail} alt={movie.title} />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

@@ -17,7 +17,7 @@ const { Movie, Genre } = db; // Destructure the models
 
 async function importMovies() {
   try {
-    const filePath = path.join(__dirname, "../services/movies.json");
+    const filePath = path.join(__dirname, "../services/movies500.json");
     const file = await readFile(filePath, "utf-8");
     const movies = JSON.parse(file);
 
