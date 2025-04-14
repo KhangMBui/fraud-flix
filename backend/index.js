@@ -6,6 +6,7 @@ const db = require("./models"); // this grabs the whole models/index.js
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const movieRoutes = require("./routes/movieRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,8 +14,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
-app.use("/api/auth", authRoutes);
+app.use("/api/users", authRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/movies", movieRoutes);
 
 app.get("/", (req, res) => {
   res.send("Fraudflix backend is here to save the day 🚀!");
