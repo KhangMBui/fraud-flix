@@ -22,15 +22,13 @@
 .loginContainer {
   display: flex;
   justify-content: flex-end;
-  height: 93vh;
+  height: 100vh;
   font-family: "Netflix Sans", sans-serif;
   position: relative;
   z-index: 1;
   background-image: url("/images/loginBackground.jpg");
   background-size:cover;
   background-position: center;
-  width: 100vw;
-  height: 100vh;
 }
 
 .loginContent {
