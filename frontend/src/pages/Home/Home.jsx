@@ -101,6 +101,11 @@ function Home() {
     { title: "Family", genre: "Family" },
     { title: "Comedy", genre: "Comedy" },
     { title: "Horror", genre: "Horror" },
+    { title: "Animation", genre: "Animation" },
+    { title: "Romance", genre: "Romance" },
+    { title: "Drama", genre: "Drama" },
+    { title: "Fantasy", genre: "Fantasy" },
+    { title: "Science Fiction", genre: "Science Fiction" },
   ];
 
   const username = localStorage.getItem("username");

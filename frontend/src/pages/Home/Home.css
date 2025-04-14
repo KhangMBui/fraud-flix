@@ -170,6 +170,7 @@
   flex-direction: row;
   gap: 1vw;
   overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
 }
