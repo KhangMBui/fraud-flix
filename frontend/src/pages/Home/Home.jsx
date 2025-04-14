@@ -11,6 +11,8 @@ import Footer from "../../components/Footer/Footer";
 import images from "../../assets/images";
 import { Link, useNavigate } from "react-router-dom";
 import moviesData from "../../../../backend/services/movies.json";
+import axios from "axios";
+
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,6 +20,7 @@ function Home() {
   const scrollIntervals = useRef([]);
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
+  const [firstMovie, setFirstMovies] = useState([]);
 
   useEffect(() => {
     scrollRefs.current.forEach((container, index) => {
@@ -65,6 +68,23 @@ function Home() {
         };
       }
     });
+  }, []);
+
+  useEffect(() => {
+    // Fetch movies from the backend API
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/getAllMovies");
+        setMovies(response.data);
+        if (response.data.length > 0) {
+          setFirstMovie(response.data[0]); // Set the first movie
+        }
+      } catch (err) {
+        console.error("Failed to fetch movies:", err);
+      }
+    };
+
+    fetchMovies();
   }, []);
 
   // Load movies from movies.json

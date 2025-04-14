@@ -23,3 +23,19 @@ exports.search = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+exports.getAllMovies = async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+  const offset = (page - 1) * limit;
+
+  try {
+    const movies = await Movie.findAll({
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+    });
+    res.json(movies);
+  } catch (err) {
+    console.error("Error fetching movies: ", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
