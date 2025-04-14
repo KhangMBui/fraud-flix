@@ -1,4 +1,5 @@
 const { Movie } = require("./../models");
+const { Genre } = require("./../models");
 const { Op } = require("sequelize");
 
 exports.search = async (req, res) => {
@@ -25,7 +26,7 @@ exports.search = async (req, res) => {
 };
 
 exports.getAllMovies = async (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 50 } = req.query;
   const offset = (page - 1) * limit;
 
   try {
@@ -33,9 +34,10 @@ exports.getAllMovies = async (req, res) => {
       limit: parseInt(limit),
       offset: parseInt(offset),
     });
+    console.log("Movies fetched from database:", movies); // Log the movies
     res.json(movies);
   } catch (err) {
-    console.error("Error fetching movies: ", err);
+    console.error("Error fetching movies with genres: ", err);
     res.status(500).json({ message: "Server error" });
   }
 };

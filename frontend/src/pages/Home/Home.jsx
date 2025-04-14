@@ -20,7 +20,6 @@ function Home() {
   const scrollIntervals = useRef([]);
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
-  const [firstMovie, setFirstMovies] = useState([]);
 
   useEffect(() => {
     scrollRefs.current.forEach((container, index) => {
@@ -71,21 +70,19 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    // Fetch movies from the backend API
     const fetchMovies = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/getAllMovies");
+        const response = await axios.get("http://localhost:5000/api/movies/getAllMovies");
+        console.log("Fetched Movies:", response.data); // Log the fetched movies
         setMovies(response.data);
-        if (response.data.length > 0) {
-          setFirstMovie(response.data[0]); // Set the first movie
-        }
       } catch (err) {
         console.error("Failed to fetch movies:", err);
       }
     };
-
+  
     fetchMovies();
   }, []);
+
 
   // Load movies from movies.json
   useEffect(() => {
@@ -104,16 +101,17 @@ function Home() {
     setIsLoggedIn(false);
     navigate("/Login");
   };
-  // const getCurrentUsername = async () => {
-  //   const token = localStorage.getItem("token");
-  //   const response = await axios.get("http://localhost:5000/api/auth/me", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  //   console.log("Username: ", response.data.username);
-  //   return response.data.username;
-  // };
+
+  const getCurrentUsername = async () => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get("http://localhost:5000/api/auth/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("Username: ", response.data.username);
+    return response.data.username;
+  };
 
   const sections = [
     { title: "Action", genre: "Action" },

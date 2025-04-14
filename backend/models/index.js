@@ -21,6 +21,7 @@ Movie.belongsToMany(Genre, {
   foreignKey: "movieId",
   otherKey: "genreId",
 });
+
 Genre.belongsToMany(Movie, {
   through: "MovieGenres",
   foreignKey: "genreId",
