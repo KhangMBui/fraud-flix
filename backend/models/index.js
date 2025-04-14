@@ -13,7 +13,18 @@ WatchHistory.belongsTo(User, { foreignKey: "userId" });
 Movie.hasMany(WatchHistory, { foreignKey: "movieId" });
 WatchHistory.belongsTo(Movie, { foreignKey: "movieId" });
 
-Genre.hasMany(Movie, { foreignKey: "genreId" });
-Movie.belongsTo(Genre, { foreignKey: "genreId" });
+// Genre.hasMany(Movie, { foreignKey: "genreId" });
+// Movie.belongsToMany(Genre, { foreignKey: "genreId" });
+
+Movie.belongsToMany(Genre, {
+  through: "MovieGenres",
+  foreignKey: "movieId",
+  otherKey: "genreId",
+});
+Genre.belongsToMany(Movie, {
+  through: "MovieGenres",
+  foreignKey: "genreId",
+  otherKey: "movieId",
+});
 
 module.exports = { sequelize, User, Movie, Genre, WatchHistory };

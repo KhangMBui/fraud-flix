@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       // movie/show-episode thumbnail image
       thumbnail: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
 
       // Show's releast date
@@ -50,8 +50,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         validate: {
           min: 0,
-          max: 10
-        }
+          max: 10,
+        },
       },
 
       // ID of genre table, referring to Action, Comedy, Drama, Horror, etc.
