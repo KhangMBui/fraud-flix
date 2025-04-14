@@ -22,12 +22,19 @@ export async function fetchGenres() {
     response.data.genres.forEach((genre) => {
       genreMap[genre.id] = genre.name;
     });
+
+    // Write to genre.json
+    await writeFile("genre.json", JSON.stringify(genreMap, null, 2));
+    console.log("genreMap written to genre.json");
+
     return genreMap;
   } catch (err) {
     console.error(`Failed to fetch genres: `, err.message);
     return {};
   }
 }
+
+fetchGenres();
 
 // async function displayGenres() {
 //   const genreMap = await fetchGenres(); // Now we're waiting for the result
