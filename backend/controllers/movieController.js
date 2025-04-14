@@ -31,8 +31,12 @@ exports.getAllMovies = async (req, res) => {
 
   try {
     const movies = await Movie.findAll({
-      limit: parseInt(limit),
-      offset: parseInt(offset),
+      where: {
+        title: {
+          [Op.ne]: null, // Ensure title is not null
+        },
+      },
+      limit: 1000
     });
     console.log("Movies fetched from database:", movies); // Log the movies
     res.json(movies);
