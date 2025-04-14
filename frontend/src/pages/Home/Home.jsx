@@ -10,12 +10,14 @@ import {
 import Footer from "../../components/Footer/Footer";
 import images from "../../assets/images";
 import { Link, useNavigate } from "react-router-dom";
+import moviesData from "../../../../backend/services/movies.json";
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const scrollRefs = useRef([]);
   const scrollIntervals = useRef([]);
   const navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     scrollRefs.current.forEach((container, index) => {
@@ -65,6 +67,11 @@ function Home() {
     });
   }, []);
 
+  // Load movies from movies.json
+  useEffect(() => {
+    setMovies(moviesData);
+  }, []);
+
   // Effect to check if logged in:
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -89,10 +96,11 @@ function Home() {
   // };
 
   const sections = [
-    { title: "Horror", images: images.horror },
-    { title: "Anime", images: images.anime },
-    { title: "Reality Shows", images: images.realityShows },
-    { title: "Action", images: images.action },
+    { title: "Action", genre: "Action" },
+    { title: "Adventure", genre: "Adventure" },
+    { title: "Family", genre: "Family" },
+    { title: "Comedy", genre: "Comedy" },
+    { title: "Horror", genre: "Horror" },
   ];
 
   const username = localStorage.getItem("username");
@@ -139,24 +147,31 @@ function Home() {
         <span className="username">{username}</span>
       </div>
       <div className="pageContent">
-        {sections.map((section, index) => (
-          <div key={index} className="showsContainer">
-            <h1 className="title">{section.title}</h1>
-            <div
-              ref={(el) => (scrollRefs.current[index] = el)}
-              className="shows"
-            >
-              {section.images.map((image, imgIndex) => (
-                <img
+      {sections.map((section, index) => {
+          // Filter movies by genre
+          const filteredMovies = movies.filter((movie) =>
+            movie.genres.includes(section.genre)
+          );
+
+          return (
+            <div key={index} className="showsContainer">
+              <h1 className="title">{section.title}</h1>
+              <div
+                ref={(el) => (scrollRefs.current[index] = el)}
+                className="shows"
+              >
+                {filteredMovies.map((movie, imgIndex) => (
+                  <img
                   key={imgIndex}
-                  src={image}
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} // Use the poster_path for the thumbnail
                   className="show"
-                  alt={`Show ${imgIndex + 1}`}
-                />
-              ))}
+                  alt={movie.title}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <Footer />
     </div>
