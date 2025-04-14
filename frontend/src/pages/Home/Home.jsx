@@ -73,7 +73,7 @@ function Home() {
     const fetchMovies = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/movies/getAllMovies");
-        console.log("Fetched Movies:", response.data); // Log the fetched movies
+        console.log("Fetched Movies:", response.data);
         setMovies(response.data);
       } catch (err) {
         console.error("Failed to fetch movies:", err);
@@ -84,10 +84,10 @@ function Home() {
 
 
 
-  // Load movies from movies.json
-  useEffect(() => {
-    setMovies(moviesData);
-  }, []);
+  // // Load movies from movies.json
+  // useEffect(() => {
+  //   setMovies(moviesData);
+  // }, []);
 
   // Effect to check if logged in:
   useEffect(() => {
@@ -125,6 +125,15 @@ function Home() {
     { title: "Fantasy", genre: "Fantasy" },
     { title: "Science Fiction", genre: "Science Fiction" },
   ];
+
+  const groupedMovies = sections.map((section) => {
+    return {
+      title: section.title,
+      movies: movies.filter((movie) =>
+        movie.Genres.some((genre) => genre.name === section.genre)
+      ),
+    };
+  });
 
   const username = localStorage.getItem("username");
 
@@ -170,31 +179,24 @@ function Home() {
         <span className="username">{username}</span>
       </div>
       <div className="pageContent">
-      {sections.map((section, index) => {
-          // Filter movies by genre
-          const filteredMovies = movies.filter((movie) =>
-            movie.genres.includes(section.genre)
-          );
-
-          return (
-            <div key={index} className="showsContainer">
-              <h1 className="title">{section.title}</h1>
-              <div
-                ref={(el) => (scrollRefs.current[index] = el)}
-                className="shows"
-              >
-                {filteredMovies.map((movie, imgIndex) => (
-                  <img
+        {groupedMovies.map((group, index) => (
+          <div key={index} className="showsContainer">
+            <h1 className="title">{group.title}</h1>
+            <div
+              ref={(el) => (scrollRefs.current[index] = el)}
+              className="shows"
+            >
+              {group.movies.map((movie, imgIndex) => (
+                <img
                   key={imgIndex}
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} // Use the poster_path for the thumbnail
+                  src={movie.thumbnail}
                   className="show"
                   alt={movie.title}
-                  />
-                ))}
-              </div>
+                />
+              ))}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
       <Footer />
     </div>
