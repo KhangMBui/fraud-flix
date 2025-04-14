@@ -27,8 +27,9 @@
   position: relative;
   z-index: 1;
   background-image: url("/images/loginBackground.jpg");
-  background-size:cover;
+  background-size: cover;
   background-position: center;
+  overflow-y: hidden;
 }
 
 .loginContent {

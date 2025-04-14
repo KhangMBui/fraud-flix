@@ -27,8 +27,9 @@
   font-family: "Netflix Sans", sans-serif;
   position: relative;
   background-image: url("/images/loginBackground.jpg");
-  background-size:cover;
+  background-size: cover;
   background-position: center;
+  overflow-y: hidden;
 }
 
 .registrationContent {
