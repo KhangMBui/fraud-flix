@@ -45,3 +45,15 @@ exports.getAllMovies = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+exports.getGenres = async (req, res) => {
+  try {
+    // retrieve all genres by alphabetical order
+    const genres = await Genre.findAll({
+      sortBy: [['name', 'ASC']]
+    });
+    res.status(200).json(genres);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};

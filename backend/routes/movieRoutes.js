@@ -6,4 +6,6 @@ router.get("/search", movieController.search);
 
 router.get("/getAllMovies", movieController.getAllMovies);
 
+router.get("/genres", movieController.getGenres);
+
 module.exports = router;
