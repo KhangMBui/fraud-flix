@@ -44,10 +44,10 @@ function Home() {
           const { clientX } = event;
           const { left, right, width } = container.getBoundingClientRect();
 
-          if (clientX < left + width * 0.1) {
+          if (clientX < left + width * 0.2) {
             // If mouse is at the left end, scroll left
             startScrolling(-1);
-          } else if (clientX > right - width * 0.9) {
+          } else if (clientX > right - width * 0.2) {
             // If mouse is at the right end, scroll right
             startScrolling(1);
           } else {
