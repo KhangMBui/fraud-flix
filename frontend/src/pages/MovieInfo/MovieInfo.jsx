@@ -7,9 +7,11 @@ import { useParams } from "react-router-dom";
 import "./MovieInfo.css";
 import axios from "axios";
 import Header from "../../components/Header/Header";
+import { useAuth } from "../../hooks/useAuth";
 import Footer from "../../components/Footer/Footer";
 
 function MovieInfo() {
+  const { isLoggedIn, handleLogout } = useAuth();
   const { id } = useParams();
   console.log("id: ", id);
   const [movie, setMovie] = useState(null);
@@ -31,7 +33,7 @@ function MovieInfo() {
 
   return (
     <div className="page-layout">
-      <Header />
+      <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <div className="movie-info-page">
         {!movie ? (
           <div className="loading">Loading...</div>

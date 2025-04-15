@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./SearchPage.css";
-import Footer from "../../components/Footer/Footer";
 import { Trash3Fill, Recycle, Search } from "react-bootstrap-icons";
 import axios from "axios";
 
