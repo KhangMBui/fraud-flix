@@ -19,10 +19,16 @@
   font-style: normal;
 }
 
+.page-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 /* General page styles */
 .movie-info-page {
-  font-family: "Helvetica Neue", sans-serif;
-  background-color: #f5f5f5;
+  margin-top: 10vh;
+  font-family: "Netflix Sans";
   min-height: 100vh;
   padding: 20px;
 }
@@ -37,9 +43,10 @@
 
 /* Main container for movie info */
 .movie-info-container {
-  max-width: 1200px;
+  max-width: 75vw;
   margin: 0 auto;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: #f5f5f5;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -52,7 +59,6 @@
   flex-direction: row;
   gap: 30px;
   align-items: flex-start;
-  margin-bottom: 30px;
 }
 
 /* Movie poster styling */
@@ -123,14 +129,14 @@
   margin-right: 15px;
   font-size: 1.1rem;
   padding: 8px 15px;
-  background-color: #ff8c00;
+  background-color: #f24a01;
   color: white;
   border-radius: 20px;
   transition: background-color 0.3s ease;
 }
 
 .genres ul li:hover {
-  background-color: #e07b00;
+  background-color: #ff8c00;
 }
 
 /* Responsive design */

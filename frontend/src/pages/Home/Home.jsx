@@ -1,12 +1,6 @@
 import "./Home.css";
 import { useEffect, useRef, useState } from "react";
-import {
-  Search,
-  BellFill,
-  PersonFill,
-  BoxArrowRight,
-  BoxArrowLeft,
-} from "react-bootstrap-icons";
+import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -120,41 +114,7 @@ function Home() {
 
   return (
     <div className="pageContainer">
-      <div className="navbar">
-        <div className="navbarLeft">
-          <img src="/images/FraudflixLogo.png" className="logo"></img>
-          <div className="navOption">
-            <a>Home</a>
-            <a>Series</a>
-            <a>Movies</a>
-          </div>
-        </div>
-        <div className="navbarRight">
-          <Link to="/Search" title="Search">
-            <Search size={22} className="navbarButton" />
-          </Link>
-          <BellFill size={22} className="navbarButton" title="Notifications" />
-          <PersonFill size={25} className="navbarButton" title="Profile" />
-          <div className="auth-option">
-            {isLoggedIn ? (
-              <BoxArrowRight
-                onClick={handleLogout}
-                size={23}
-                className="navbarButton"
-                title="Logout"
-              />
-            ) : (
-              <Link to="/Login" className="register-link">
-                <BoxArrowLeft
-                  size={23}
-                  className="navbarButton"
-                  title="Login"
-                />
-              </Link>
-            )}
-          </div>
-        </div>
-      </div>
+      <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <div className="welcome-text">
         <span className="welcome-label">Welcome, </span>
         <span className="username">{username}</span>
