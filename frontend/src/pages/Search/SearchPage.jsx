@@ -123,7 +123,10 @@ function SearchPage() {
         <div className="movieContainer">
           {results.map((movie) => (
             <div className="movieCard" key={movie.id}>
-              <img src={movie.thumbnail} alt={movie.title} />
+              {/* <Link to={`/movie/${movie.id}`}>
+                <img src={movie.thumbnail} alt={movie.title} />{" "}
+              </Link> */}
+              <img src={movie.thumbnail} alt={movie.title} />{" "}
             </div>
           ))}
         </div>

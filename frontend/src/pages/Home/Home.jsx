@@ -81,11 +81,6 @@ function Home() {
     fetchMovies();
   }, []);
 
-  // // Load movies from movies.json
-  // useEffect(() => {
-  //   setMovies(moviesData);
-  // }, []);
-
   // Effect to check if logged in:
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -173,12 +168,9 @@ function Home() {
               className="shows"
             >
               {group.movies.map((movie, imgIndex) => (
-                <img
-                  key={imgIndex}
-                  src={movie.thumbnail}
-                  className="show"
-                  alt={movie.title}
-                />
+                <Link to={`/movie/${movie.id}`} key={imgIndex} className="show">
+                  <img src={movie.thumbnail} alt={movie.title} />
+                </Link>
               ))}
             </div>
           </div>

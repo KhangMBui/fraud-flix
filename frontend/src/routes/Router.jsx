@@ -3,6 +3,7 @@ import Home from "../pages/Home/Home";
 import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
 import SearchPage from "../pages/Search/SearchPage";
+import MovieInfo from "../pages/MovieInfo/MovieInfo";
 
 const AppRouter = () => {
   return (
@@ -17,6 +18,9 @@ const AppRouter = () => {
 
         {/* Search page */}
         <Route path="/Search" element={<SearchPage />} />
+
+        {/* Movie Info Page*/}
+        <Route path="/movie/:id" element={<MovieInfo />} />
       </Routes>
     </Router>
   );

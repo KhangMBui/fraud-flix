@@ -155,6 +155,7 @@
 
 .show {
   width: 20%;
+  display: inline-block;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
@@ -165,14 +166,21 @@
   opacity: 0.8;
 }
 
+.show img {
+  width: 15.625vw;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
 .shows {
   display: flex;
   flex-direction: row;
   gap: 1vw;
   overflow-x: auto;
   overflow-y: hidden;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .shows::-webkit-scrollbar {
