@@ -18,7 +18,12 @@ exports.getDashboardStats = async (req, res) => {
       allGenres,
       moviesWatched,
     });
-    console.log(res);
+    console.log("Dashboard Stats:", {
+      allUsers,
+      allMovies,
+      allGenres,
+      moviesWatched,
+    });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -35,6 +40,26 @@ exports.getUsers = async (req, res) => {
       attributes: ["id", "email", "password", "username", "isAdmin"],
     });
     res.status(200).json(users);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
+/**
+ * Retrieves a single user by id.
+ * @param {*} req http request.
+ * @param {*} res http response.
+ */
+exports.getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findByPk(id, {
+      attributes: ["id", "email", "username", "isAdmin"],
+    });
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+    res.status(200).json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -68,7 +93,7 @@ exports.updateUserType = async (req, res) => {
       message: `User ${
         isAdmin
           ? "rank updated to Administrator role"
-          : "rank updated to standard role"
+          : "rank updated to Standard role"
       }`,
       user: {
         id: user.id,
@@ -89,9 +114,9 @@ exports.updateUserType = async (req, res) => {
  */
 exports.deleteUser = async (req, res) => {
   try {
-    const { userID } = req.params;
+    const { id } = req.params;
     // find a user via id
-    const user = await User.findByPk(userID);
+    const user = await User.findByPk(id);
     if (!user) {
       return res.status(404).json({ error: "Could Not Find Requested User!" });
     }
