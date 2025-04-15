@@ -27,13 +27,14 @@
 
 /* General page styles */
 .movie-info-page {
-  margin-top: 10vh;
+  flex: 1;
   font-family: "Netflix Sans";
-  min-height: 100vh;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-/* Loading state */
 .loading {
   text-align: center;
   font-size: 24px;
@@ -44,13 +45,14 @@
 /* Main container for movie info */
 .movie-info-container {
   max-width: 75vw;
-  margin: 0 auto;
-  /* background-color: #fff; */
+  max-height: 90vh;
+  overflow: auto;
   background-color: #f5f5f5;
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header with poster and details */
@@ -63,7 +65,7 @@
 
 /* Movie poster styling */
 .movie-poster {
-  width: 300px;
+  width: 320px;
   height: 450px;
   object-fit: cover;
   border-radius: 10px;
@@ -73,6 +75,7 @@
 /* Movie details section */
 .movie-details {
   flex: 1;
+  overflow: hidden;
 }
 
 /* Movie title */
@@ -81,6 +84,7 @@
   font-weight: 600;
   margin-bottom: 15px;
   color: #333;
+  overflow: hidden;
 }
 
 /* Release date styling */
@@ -137,6 +141,12 @@
 
 .genres ul li:hover {
   background-color: #ff8c00;
+}
+
+/* Footer styling */
+footer {
+  flex-shrink: 0; /* Ensure the footer stays at the bottom */
+  margin-top: auto; /* Push the footer to the bottom of the page */
 }
 
 /* Responsive design */
