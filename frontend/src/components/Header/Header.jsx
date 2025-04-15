@@ -27,7 +27,9 @@ function Header({ isLoggedIn, handleLogout }) {
           <Search size={22} className="navbarButton" />
         </Link>
         {/* <BellFill size={22} className="navbarButton" title="Notifications" /> */}
-        <PersonFill size={25} className="navbarButton" title="Profile" />
+        <Link to="/Profile" className="navbarButton" title="Profile">
+          <PersonFill size={25} className="navbarButton" title="Profile" />
+        </Link>
         <div className="auth-option">
           {isLoggedIn ? (
             <BoxArrowRight

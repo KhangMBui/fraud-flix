@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import SearchPage from "../pages/Search/SearchPage";
 import MovieInfo from "../pages/MovieInfo/MovieInfo";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
+import Profile from "../pages/Profile/profile";
 
 const AdminRouter = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -33,6 +34,9 @@ const AppRouter = () => {
 
         {/* Admin Dashboard */}
         <Route path="/admin/" element={<AdminDashboard />} />
+
+        {/* Profile Page */}
+        <Route path="/Profile" element={<Profile />} />
       </Routes>
     </Router>
   );
