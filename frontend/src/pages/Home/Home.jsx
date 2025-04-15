@@ -153,7 +153,9 @@ function Home() {
             <Search size={22} className="navbarButton" />
           </Link>
           <BellFill size={22} className="navbarButton" title="Notifications" />
+          <Link to="/Profile" title="Profile">
           <PersonFill size={25} className="navbarButton" title="Profile" />
+          </Link>
           <div className="auth-option">
             {isLoggedIn ? (
               <BoxArrowRight
