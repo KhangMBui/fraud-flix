@@ -4,6 +4,15 @@ import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
 import SearchPage from "../pages/Search/SearchPage";
 import MovieInfo from "../pages/MovieInfo/MovieInfo";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
+
+const AdminRouter = ({ children }) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
 const AppRouter = () => {
   return (
@@ -21,6 +30,9 @@ const AppRouter = () => {
 
         {/* Movie Info Page*/}
         <Route path="/movie/:id" element={<MovieInfo />} />
+
+        {/* Admin Dashboard */}
+        <Route path="/admin/" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );
