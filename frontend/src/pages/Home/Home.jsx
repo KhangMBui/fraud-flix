@@ -8,11 +8,8 @@ import {
   BoxArrowLeft,
 } from "react-bootstrap-icons";
 import Footer from "../../components/Footer/Footer";
-import images from "../../assets/images";
 import { Link, useNavigate } from "react-router-dom";
-import moviesData from "../../../../backend/services/movies.json";
 import axios from "axios";
-
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -72,7 +69,9 @@ function Home() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/movies/getAllMovies");
+        const response = await axios.get(
+          "http://localhost:5000/api/movies/getAllMovies"
+        );
         console.log("Fetched Movies:", response.data);
         setMovies(response.data);
       } catch (err) {
@@ -81,8 +80,6 @@ function Home() {
     };
     fetchMovies();
   }, []);
-
-
 
   // // Load movies from movies.json
   // useEffect(() => {
@@ -100,17 +97,6 @@ function Home() {
     localStorage.removeItem("username");
     setIsLoggedIn(false);
     navigate("/Login");
-  };
-
-  const getCurrentUsername = async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get("http://localhost:5000/api/auth/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log("Username: ", response.data.username);
-    return response.data.username;
   };
 
   const sections = [
