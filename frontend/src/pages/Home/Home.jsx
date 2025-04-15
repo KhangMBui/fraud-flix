@@ -1,18 +1,9 @@
 import "./Home.css";
 import { useEffect, useRef, useState } from "react";
-import {
-  Search,
-  BellFill,
-  PersonFill,
-  BoxArrowRight,
-  BoxArrowLeft,
-} from "react-bootstrap-icons";
+import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import images from "../../assets/images";
 import { Link, useNavigate } from "react-router-dom";
-import moviesData from "../../../../backend/services/movies.json";
 import axios from "axios";
-
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -72,7 +63,9 @@ function Home() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/movies/getAllMovies");
+        const response = await axios.get(
+          "http://localhost:5000/api/movies/getAllMovies"
+        );
         console.log("Fetched Movies:", response.data);
         setMovies(response.data);
       } catch (err) {
@@ -81,13 +74,6 @@ function Home() {
     };
     fetchMovies();
   }, []);
-
-
-
-  // // Load movies from movies.json
-  // useEffect(() => {
-  //   setMovies(moviesData);
-  // }, []);
 
   // Effect to check if logged in:
   useEffect(() => {
@@ -100,17 +86,6 @@ function Home() {
     localStorage.removeItem("username");
     setIsLoggedIn(false);
     navigate("/Login");
-  };
-
-  const getCurrentUsername = async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get("http://localhost:5000/api/auth/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log("Username: ", response.data.username);
-    return response.data.username;
   };
 
   const sections = [
@@ -139,43 +114,7 @@ function Home() {
 
   return (
     <div className="pageContainer">
-      <div className="navbar">
-        <div className="navbarLeft">
-          <img src="/images/FraudflixLogo.png" className="logo"></img>
-          <div className="navOption">
-            <a>Home</a>
-            <a>Series</a>
-            <a>Movies</a>
-          </div>
-        </div>
-        <div className="navbarRight">
-          <Link to="/Search" title="Search">
-            <Search size={22} className="navbarButton" />
-          </Link>
-          <BellFill size={22} className="navbarButton" title="Notifications" />
-          <Link to="/Profile" title="Profile">
-          <PersonFill size={25} className="navbarButton" title="Profile" />
-          </Link>
-          <div className="auth-option">
-            {isLoggedIn ? (
-              <BoxArrowRight
-                onClick={handleLogout}
-                size={23}
-                className="navbarButton"
-                title="Logout"
-              />
-            ) : (
-              <Link to="/Login" className="register-link">
-                <BoxArrowLeft
-                  size={23}
-                  className="navbarButton"
-                  title="Login"
-                />
-              </Link>
-            )}
-          </div>
-        </div>
-      </div>
+      <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <div className="welcome-text">
         <span className="welcome-label">Welcome, </span>
         <span className="username">{username}</span>
@@ -189,12 +128,9 @@ function Home() {
               className="shows"
             >
               {group.movies.map((movie, imgIndex) => (
-                <img
-                  key={imgIndex}
-                  src={movie.thumbnail}
-                  className="show"
-                  alt={movie.title}
-                />
+                <Link to={`/movie/${movie.id}`} key={imgIndex} className="show">
+                  <img src={movie.thumbnail} alt={movie.title} />
+                </Link>
               ))}
             </div>
           </div>

@@ -10,14 +10,17 @@ router.use(authMiddleware);
 router.use(adminMiddleware);
 router.get("/dashboard", adminUserController.getDashboardStats);
 router.get("/users", adminUserController.getUsers);
-router.get("/users/:userId", adminUserController.updateUserType);
-router.get("/users/:userId", adminUserController.deleteUser);
+router.get("/users/:userId", adminUserController.getUserById);
+router.put("/users/:userId", adminUserController.updateUserType);
+router.delete("/users/:userId", adminUserController.deleteUser);
+
 router.get("/movies", adminMovieController.getMovies);
 router.get("/movies/:id", adminMovieController.getMovieByID);
-router.get("/movies/:id", adminMovieController.updateMovie);
-router.get("/movies/:id", adminMovieController.deleteMovie);
+router.put("/movies/:id", adminMovieController.updateMovie);
+router.delete("/movies/:id", adminMovieController.deleteMovie);
+
 router.get("/genres", adminGenreController.getGenres);
 router.get("/genres/:id", adminGenreController.getGenreByID);
-router.get("/genres/:id", adminGenreController.updateGenre);
+router.put("/genres/:id", adminGenreController.updateGenre);
 
 module.exports = router;

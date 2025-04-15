@@ -37,7 +37,7 @@ exports.getAllMovies = async (req, res) => {
           through: { attributes: [] }, // Exclude attributes from the join table (MovieGenre)
         },
       ],
-      limit: 1000
+      limit: 1000,
     });
     console.log("Movies fetched from database:", movies); // Log the movies
     res.json(movies);
@@ -47,3 +47,20 @@ exports.getAllMovies = async (req, res) => {
   }
 };
 
+exports.getMovie = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const movie = await Movie.findByPk(id, {
+      include: [Genre],
+    });
+
+    if (!movie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+
+    res.json(movie);
+  } catch (err) {
+    console.error("Error fetching movie with id: ", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};

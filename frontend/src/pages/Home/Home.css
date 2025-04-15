@@ -29,23 +29,6 @@
 }
 
 /*** Header ***/
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-top: 1.8vh;
-}
-
-.navbarLeft {
-  display: flex;
-  align-items: center;
-  margin-right: 5vw;
-}
-
-.navOption {
-  display: flex;
-  gap: 2vw;
-}
 
 .navbar a {
   color: white;
@@ -76,40 +59,6 @@
 .username {
   color: #f24a01;
   font-weight: 500;
-}
-.navbarRight {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1.5vw;
-  margin-left: 5vw;
-}
-
-.navbarButton {
-  color: white;
-}
-
-.navbarButton:hover {
-  cursor: pointer;
-  color: #f24a01;
-}
-
-.regLink {
-  color: white;
-  text-decoration: none;
-  font-weight: 300;
-  transition: color 0.3s ease;
-}
-
-.regLink:hover {
-  cursor: pointer;
-  color: #f24a01;
-}
-
-.logo {
-  width: 8%;
-  height: auto;
-  padding-right: 3vw;
 }
 
 .title {
@@ -155,6 +104,7 @@
 
 .show {
   width: 20%;
+  display: inline-block;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
@@ -165,14 +115,21 @@
   opacity: 0.8;
 }
 
+.show img {
+  width: 15.625vw;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
 .shows {
   display: flex;
   flex-direction: row;
   gap: 1vw;
   overflow-x: auto;
   overflow-y: hidden;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .shows::-webkit-scrollbar {

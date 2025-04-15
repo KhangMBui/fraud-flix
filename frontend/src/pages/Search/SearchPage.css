@@ -169,15 +169,11 @@ body {
   color: red;
 }
 
-/* .movieContainer {
-  display: flex;
-} */
-
 .movieContainer {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1px 16px; /* vertical, horizontal */
+  gap: 1px 16px;
   padding: 20px;
   align-items: start;
 }
@@ -189,16 +185,27 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+
+  /* Ensure the link covers the card and aligns the content */
+  position: relative;
+  display: block;
 }
 
-.movieCard:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-}
-
-.movieCard img {
+.movieThumbnail {
   width: 100%;
-  height: 300px;
+  height: auto;
   object-fit: cover;
   border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.movieThumbnail:hover {
+  transform: scale(1.05);
+}
+
+.movieLink {
+  display: block;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
 }
