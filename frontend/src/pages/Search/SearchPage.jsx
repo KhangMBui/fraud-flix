@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./SearchPage.css";
 import Footer from "../../components/Footer/Footer";
 import { Trash3Fill, Recycle, Search } from "react-bootstrap-icons";
@@ -123,10 +124,13 @@ function SearchPage() {
         <div className="movieContainer">
           {results.map((movie) => (
             <div className="movieCard" key={movie.id}>
-              {/* <Link to={`/movie/${movie.id}`}>
-                <img src={movie.thumbnail} alt={movie.title} />{" "}
-              </Link> */}
-              <img src={movie.thumbnail} alt={movie.title} />{" "}
+              <Link to={`/movie/${movie.id}`} className="movieLink">
+                <img
+                  src={movie.thumbnail}
+                  alt={movie.title}
+                  className="movieThumbnail"
+                />{" "}
+              </Link>
             </div>
           ))}
         </div>
