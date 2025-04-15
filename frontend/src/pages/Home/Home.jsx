@@ -2,14 +2,14 @@ import "./Home.css";
 import { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../../hooks/useAuth";
 
 function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, handleLogout } = useAuth();
   const scrollRefs = useRef([]);
   const scrollIntervals = useRef([]);
-  const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -74,19 +74,6 @@ function Home() {
     };
     fetchMovies();
   }, []);
-
-  // Effect to check if logged in:
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    setIsLoggedIn(false);
-    navigate("/Login");
-  };
 
   const sections = [
     { title: "Action", genre: "Action" },
