@@ -38,19 +38,34 @@ function User() {
   return (
     <div className="profilePage">
       <Header />
-      <div className="profileContainer">
-        <div className="profileCard">
-        <img
-            src={profilePicture}
-            alt="Profile"
-            className="profilePicture"
-          />
-          <div className="profileDetails">
-            <h2>{profile.username}</h2>
-            <p>Email: {profile.email}</p>
-          </div>
+        <div className="profileContainer">
+            <div className="profileCard">
+                <h1 className="profileHeader">User Profile</h1>
+                <div className="profileContent">
+                    <img
+                        src={profilePicture}
+                        alt="Profile"
+                        className="profilePicture"
+                    />
+                    <div className="profileDetails">
+                        <label htmlFor="username">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            value={profile.username}
+                            readOnly
+                        />
+                        <label htmlFor="email">Email</label>
+                        <input
+                            type="text"
+                            id="email"
+                            value={profile.email}
+                            readOnly
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
       <Footer />
     </div>
   );
