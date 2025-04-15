@@ -10,12 +10,16 @@ import {
 import Footer from "../../components/Footer/Footer";
 import images from "../../assets/images";
 import { Link, useNavigate } from "react-router-dom";
+import moviesData from "../../../../backend/services/movies.json";
+import axios from "axios";
+
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const scrollRefs = useRef([]);
   const scrollIntervals = useRef([]);
   const navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     scrollRefs.current.forEach((container, index) => {
@@ -42,10 +46,10 @@ function Home() {
           const { clientX } = event;
           const { left, right, width } = container.getBoundingClientRect();
 
-          if (clientX < left + width * 0.1) {
+          if (clientX < left + width * 0.2) {
             // If mouse is at the left end, scroll left
             startScrolling(-1);
-          } else if (clientX > right - width * 0.9) {
+          } else if (clientX > right - width * 0.2) {
             // If mouse is at the right end, scroll right
             startScrolling(1);
           } else {
@@ -65,6 +69,26 @@ function Home() {
     });
   }, []);
 
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/movies/getAllMovies");
+        console.log("Fetched Movies:", response.data);
+        setMovies(response.data);
+      } catch (err) {
+        console.error("Failed to fetch movies:", err);
+      }
+    };
+    fetchMovies();
+  }, []);
+
+
+
+  // // Load movies from movies.json
+  // useEffect(() => {
+  //   setMovies(moviesData);
+  // }, []);
+
   // Effect to check if logged in:
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -77,23 +101,39 @@ function Home() {
     setIsLoggedIn(false);
     navigate("/Login");
   };
-  // const getCurrentUsername = async () => {
-  //   const token = localStorage.getItem("token");
-  //   const response = await axios.get("http://localhost:5000/api/auth/me", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  //   console.log("Username: ", response.data.username);
-  //   return response.data.username;
-  // };
+
+  const getCurrentUsername = async () => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get("http://localhost:5000/api/auth/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("Username: ", response.data.username);
+    return response.data.username;
+  };
 
   const sections = [
-    { title: "Horror", images: images.horror },
-    { title: "Anime", images: images.anime },
-    { title: "Reality Shows", images: images.realityShows },
-    { title: "Action", images: images.action },
+    { title: "Action", genre: "Action" },
+    { title: "Adventure", genre: "Adventure" },
+    { title: "Family", genre: "Family" },
+    { title: "Comedy", genre: "Comedy" },
+    { title: "Horror", genre: "Horror" },
+    { title: "Animation", genre: "Animation" },
+    { title: "Romance", genre: "Romance" },
+    { title: "Drama", genre: "Drama" },
+    { title: "Fantasy", genre: "Fantasy" },
+    { title: "Science Fiction", genre: "Science Fiction" },
   ];
+
+  const groupedMovies = sections.map((section) => {
+    return {
+      title: section.title,
+      movies: movies.filter((movie) =>
+        movie.Genres.some((genre) => genre.name === section.genre)
+      ),
+    };
+  });
 
   const username = localStorage.getItem("username");
 
@@ -139,19 +179,19 @@ function Home() {
         <span className="username">{username}</span>
       </div>
       <div className="pageContent">
-        {sections.map((section, index) => (
+        {groupedMovies.map((group, index) => (
           <div key={index} className="showsContainer">
-            <h1 className="title">{section.title}</h1>
+            <h1 className="title">{group.title}</h1>
             <div
               ref={(el) => (scrollRefs.current[index] = el)}
               className="shows"
             >
-              {section.images.map((image, imgIndex) => (
+              {group.movies.map((movie, imgIndex) => (
                 <img
                   key={imgIndex}
-                  src={image}
+                  src={movie.thumbnail}
                   className="show"
-                  alt={`Show ${imgIndex + 1}`}
+                  alt={movie.title}
                 />
               ))}
             </div>

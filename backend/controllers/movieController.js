@@ -1,4 +1,5 @@
 const { Movie } = require("./../models");
+const { Genre } = require("./../models");
 const { Op } = require("sequelize");
 
 exports.search = async (req, res) => {
@@ -23,3 +24,26 @@ exports.search = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+exports.getAllMovies = async (req, res) => {
+  const { page = 1, limit = 50 } = req.query;
+  const offset = (page - 1) * limit;
+
+  try {
+    const movies = await Movie.findAll({
+      include: [
+        {
+          model: Genre, // Include the Genre model
+          through: { attributes: [] }, // Exclude attributes from the join table (MovieGenre)
+        },
+      ],
+      limit: 1000
+    });
+    console.log("Movies fetched from database:", movies); // Log the movies
+    res.json(movies);
+  } catch (err) {
+    console.error("Error fetching movies with genres: ", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
