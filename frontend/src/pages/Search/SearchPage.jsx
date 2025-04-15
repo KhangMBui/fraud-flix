@@ -73,6 +73,13 @@ function SearchPage() {
     <>
       <div className="mainContainer">
         <div className="searchContainer">
+          <Link to="/">
+            <img
+              src="/images/FraudflixLogo.png"
+              className="logoBackButton"
+              alt="Logo"
+            />
+          </Link>
           <div className="searchBarAndButton">
             <input
               className="searchInput"
