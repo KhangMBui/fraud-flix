@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("../../assets/fonts/Netflix-Sans-Light.otf") format("opentype");
+  font-weight: 300; /* Light */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("../../assets/fonts/Netflix-Sans-Medium.otf") format("opentype");
+  font-weight: 500; /* Medium */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("../../assets/fonts/Netflix-Sans-Bold.otf") format("opentype");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+}
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 1.8vh;
+}
+
+.navbarLeft {
+  display: flex;
+  align-items: center;
+  margin-right: 23vw;
+}
+
+.navOption {
+  display: flex;
+  gap: 2vw;
+}
+.navbarRight {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5vw;
+  margin-left: 5vw;
+}
+
+.navbarButton {
+  color: white;
+}
+
+.navbarButton:hover {
+  cursor: pointer;
+  color: #f24a01;
+}
+
+.regLink {
+  color: white;
+  text-decoration: none;
+  font-weight: 300;
+  transition: color 0.3s ease;
+}
+
+.regLink:hover {
+  cursor: pointer;
+  color: #f24a01;
+}
+
+.logo {
+  width: 8%;
+  height: auto;
+  padding-right: 3vw;
+}

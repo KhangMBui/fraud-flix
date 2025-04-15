@@ -1,0 +1,158 @@
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("../../assets/fonts/Netflix-Sans-Light.otf") format("opentype");
+  font-weight: 300; /* Light */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("../../assets/fonts/Netflix-Sans-Medium.otf") format("opentype");
+  font-weight: 500; /* Medium */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("../../assets/fonts/Netflix-Sans-Bold.otf") format("opentype");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+}
+
+.page-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* General page styles */
+.movie-info-page {
+  margin-top: 10vh;
+  font-family: "Netflix Sans";
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  font-size: 24px;
+  color: #888;
+  margin-top: 50px;
+}
+
+/* Main container for movie info */
+.movie-info-container {
+  max-width: 75vw;
+  margin: 0 auto;
+  /* background-color: #fff; */
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+/* Header with poster and details */
+.movie-header {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+/* Movie poster styling */
+.movie-poster {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Movie details section */
+.movie-details {
+  flex: 1;
+}
+
+/* Movie title */
+.movie-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Release date styling */
+.release-date {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Description section */
+.description {
+  margin-bottom: 20px;
+}
+
+.description h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.description p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Genres section */
+.genres {
+  margin-top: 20px;
+}
+
+.genres h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.genres ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.genres ul li {
+  display: inline-block;
+  margin-right: 15px;
+  font-size: 1.1rem;
+  padding: 8px 15px;
+  background-color: #f24a01;
+  color: white;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.genres ul li:hover {
+  background-color: #ff8c00;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .movie-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .movie-poster {
+    width: 80%;
+    max-width: 350px;
+    margin-bottom: 20px;
+  }
+
+  .movie-details {
+    text-align: center;
+  }
+}
