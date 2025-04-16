@@ -45,9 +45,9 @@ const AppRouter = () => {
         <Route path="/movie/:id" element={<MovieInfo />} />
 
         {/* Admin User Management */}
-        <Route path="/admin/manage-users" element={<ManageUsers />} />
+        {/* <Route path="/admin/manage-users" element={<ManageUsers />} />
         <Route path="/admin/manage-genres" element={<ManageGenres />} />
-        <Route path="/admin/manage-movies" element={<ManageMovies />} />
+        <Route path="/admin/manage-movies" element={<ManageMovies />} /> */}
 
         <Route
           path="/admin/dashboard"
@@ -65,7 +65,7 @@ const AppRouter = () => {
             </AdminRouter>
           }
         />
-        {/* <Route
+        <Route
           path="/admin/manage-movies"
           element={
             <AdminRouter>
@@ -80,7 +80,7 @@ const AppRouter = () => {
               <ManageGenres />
             </AdminRouter>
           }
-        /> */}
+        />
         {/* Profile Page */}
         <Route path="/Profile" element={<Profile />} />
       </Routes>
