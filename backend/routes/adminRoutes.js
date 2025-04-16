@@ -11,7 +11,7 @@ router.use(adminMiddleware);
 router.get("/dashboard", adminUserController.getDashboardStats);
 router.get("/users", adminUserController.getUsers);
 router.get("/users/:userId", adminUserController.getUserById);
-router.put("/users/:userId", adminUserController.updateUserType);
+router.put("/users/:userId", adminUserController.updateUser);
 router.delete("/users/:userId", adminUserController.deleteUser);
 
 router.get("/movies", adminMovieController.getMovies);
