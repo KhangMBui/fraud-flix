@@ -51,7 +51,6 @@ npm install
   CREATE USER <user> WITH ENCRYPTED PASSWORD <password>;
   GRANT ALL PRIVILEGES ON DATABASE <name> TO <name>;
   ```
-  
 2. Unix
 - In your system terminal:
 
