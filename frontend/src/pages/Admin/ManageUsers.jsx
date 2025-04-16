@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import "./ManageUsers.css"; // Import the CSS file
 
 export default function ManageUsers() {
-  const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUser, setEditedUser] = useState({
@@ -15,23 +14,8 @@ export default function ManageUsers() {
   });
 
   useEffect(() => {
-    fetchStats();
     fetchUsers();
   }, []);
-
-  const fetchStats = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/admin/dashboard", {
-        headers: {
-          Authorization: `Bearer ${token}`, // Add token to the Authorization header
-        },
-      });
-      setStats(res.data);
-    } catch (err) {
-      console.error("Error fetching dashboard stats:", err);
-    }
-  };
 
   const fetchUsers = async () => {
     try {
@@ -68,7 +52,6 @@ export default function ManageUsers() {
         });
         setUsers(users.filter((u) => u.id !== id));
         // Call fetchStats() to update users count.
-        fetchStats();
         Swal.fire("Deleted!", "The user has been deleted.", "success");
       } catch (err) {
         console.error("Failed to delete user:", err);
@@ -132,7 +115,12 @@ export default function ManageUsers() {
           }
         );
         setEditingUserId(null);
-        fetchUsers(); // refresh updated list
+        fetchUsers();
+        Swal.fire({
+          title: "Updated Successfully",
+          text: "User updated.",
+          icon: "success",
+        });
       } catch (err) {
         console.error("Error updating user:", err);
         Swal.fire({
@@ -149,29 +137,6 @@ export default function ManageUsers() {
 
   return (
     <div className="admin-dashboard-container">
-      <h2>General Stats</h2>
-      <div className="table-container">
-        <table className="user-table">
-          <thead>
-            <tr>
-              <th>Users count</th>
-              <th>Movies count</th>
-              <th>Genres count</th>
-              <th className="text-right"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {stats && (
-              <tr>
-                <td>{stats.allUsers}</td>
-                <td>{stats.allMovies}</td>
-                <td>{stats.allGenres}</td>
-                <td className="text-right"></td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
       <h2>User Management</h2>
       <div className="table-container">
         <table className="user-table">
@@ -179,7 +144,7 @@ export default function ManageUsers() {
             <tr>
               <th>#</th>
               <th>Email</th>
-              <th>Usernamez</th>
+              <th>Username</th>
               <th>Role</th>
               <th className="text-right">Actions</th>
             </tr>

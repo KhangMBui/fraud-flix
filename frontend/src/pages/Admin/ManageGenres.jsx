@@ -11,7 +11,6 @@ export default function ManageGenres() {
     tmdbId: null,
   });
   const [showAddGenreModal, setShowAddGenreModal] = useState(false);
-  const [stats, setStats] = useState(null);
   const [genres, setGenres] = useState([]);
   const [editingGenreId, setEditingGenreId] = useState(null);
   const [editedGenre, setEditedGenre] = useState({
@@ -21,23 +20,8 @@ export default function ManageGenres() {
   });
 
   useEffect(() => {
-    fetchStats();
     fetchGenres();
   }, []);
-
-  const fetchStats = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/admin/dashboard", {
-        headers: {
-          Authorization: `Bearer ${token}`, // Add token to the Authorization header
-        },
-      });
-      setStats(res.data);
-    } catch (err) {
-      console.error("Error fetching dashboard stats:", err);
-    }
-  };
 
   const fetchGenres = async () => {
     try {
@@ -73,7 +57,6 @@ export default function ManageGenres() {
         tmdbId: res.tmdbId,
       });
       fetchGenres();
-      fetchStats();
     } catch (err) {
       Swal.fire(
         "Error",
@@ -103,8 +86,6 @@ export default function ManageGenres() {
           },
         });
         setGenres(genres.filter((u) => u.id !== id));
-        // Call fetchStats() to update genres count.
-        fetchStats();
         Swal.fire("Deleted!", "The genre has been deleted.", "success");
       } catch (err) {
         console.error("Failed to delete genre:", err);
@@ -184,29 +165,6 @@ export default function ManageGenres() {
 
   return (
     <div className="admin-dashboard-container">
-      <h2>General Stats</h2>
-      <div className="table-container">
-        <table className="genre-table">
-          <thead>
-            <tr>
-              <th>Users count</th>
-              <th>Movies count</th>
-              <th>Genres count</th>
-              <th className="text-right"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {stats && (
-              <tr>
-                <td>{stats.allUsers}</td>
-                <td>{stats.allMovies}</td>
-                <td>{stats.allGenres}</td>
-                <td className="text-right"></td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
       <h2>Genre Management</h2>
       <div className="table-container">
         <table className="genre-table">

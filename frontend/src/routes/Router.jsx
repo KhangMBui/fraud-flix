@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
@@ -21,9 +26,9 @@ const AdminRouter = ({ children }) => {
       return <Navigate to="/" replace />;
     }
     return children;
-  } catch (e) {
+  } catch (error) {
     console.error("Failed to Validate TokenL:", error);
-    return <Navigte to="/login" replace />
+    return <Navigate to="/login" replace />;
   }
 };
 
