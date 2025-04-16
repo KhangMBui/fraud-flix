@@ -38,7 +38,7 @@ cd frontend
 npm install
 ```
 
-## Database
+## 🗄️ Database
 ### Install Postgres & Create a Server
 1. Windows
 - Download Postgres from [here](https://www.postgresql.org/download/windows/).
