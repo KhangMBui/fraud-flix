@@ -93,6 +93,33 @@ JWT_SECRET=<key>
 ```
 Enter your own credentials for each `DB_` field when creating your Postgres server.
 
+## 🎞️ TMDb Integration & Database Setup
+
+Fraudflix uses the TMDb API to fetch popular movie and genre data. These are converted into JSON and then used to populate our PostgreSQL database.
+
+### Steps to Fetch and Convert TMDb Data:
+
+1.  Navigate to the `backend/services/` directory:
+
+```bash
+`cd backend/services`
+```
+
+2.  Make sure your `.env` file in this directory contains your TMDb API key as the name TMDB_API_KEY.
+
+3.  Run the following scripts to fetch and convert the data:
+
+```bash
+node movieService.mjs 
+node genreService.mjs
+```
+
+These scripts will generate or update the file `movies500.json`, which contains the movie data.
+
+### Database Auto-Population
+
+When the app runs, the backend reads from `movies500.json` to populate the PostgreSQL database automatically with the fetched movie and genre data.
+
 ## ▶️ Running the App
 ### Start the Backend
 ```bash
