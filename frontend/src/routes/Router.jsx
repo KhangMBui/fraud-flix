@@ -4,6 +4,7 @@ import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
 import SearchPage from "../pages/Search/SearchPage";
 import MovieInfo from "../pages/MovieInfo/MovieInfo";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import Profile from "../pages/Profile/profile";
 
@@ -12,7 +13,16 @@ const AdminRouter = ({ children }) => {
   if (!token) {
     return <Navigate to="/login" replace />;
   }
-  return children;
+  try {
+    const userData = JSON.parse(atob(token.split(".")[1]));
+    if (!userData.isAdmin) {
+      return <Navigate to="/" replace />;
+    }
+    return children;
+  } catch (e) {
+    console.error("Failed to Validate TokenL:", error);
+    return <Navigte to="/login" replace />
+  }
 };
 
 const AppRouter = () => {
@@ -33,6 +43,9 @@ const AppRouter = () => {
         <Route path="/movie/:id" element={<MovieInfo />} />
 
         {/* Admin Dashboard */}
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+        {/* Admin User Management */}
         <Route path="/admin/manage-users" element={<ManageUsers />} />
 
         {/* Profile Page */}
