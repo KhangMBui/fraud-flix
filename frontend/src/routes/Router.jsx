@@ -1,9 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
 import SearchPage from "../pages/Search/SearchPage";
 import MovieInfo from "../pages/MovieInfo/MovieInfo";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import ManageMovies from "../pages/Admin/ManageMovies";
 import Profile from "../pages/Profile/profile";
@@ -14,7 +15,16 @@ const AdminRouter = ({ children }) => {
   if (!token) {
     return <Navigate to="/login" replace />;
   }
-  return children;
+  try {
+    const userData = JSON.parse(atob(token.split(".")[1]));
+    if (!userData.isAdmin) {
+      return <Navigate to="/" replace />;
+    }
+    return children;
+  } catch (e) {
+    console.error("Failed to Validate TokenL:", error);
+    return <Navigte to="/login" replace />
+  }
 };
 
 const AppRouter = () => {
@@ -34,11 +44,43 @@ const AppRouter = () => {
         {/* Movie Info Page*/}
         <Route path="/movie/:id" element={<MovieInfo />} />
 
-        {/* Admin Dashboard */}
-        <Route path="/admin/manage-users" element={<ManageUsers />} />
+        {/* Admin User Management */}
+        {/* <Route path="/admin/manage-users" element={<ManageUsers />} />
         <Route path="/admin/manage-genres" element={<ManageGenres />} />
-        <Route path="/admin/manage-movies" element={<ManageMovies />} />
+        <Route path="/admin/manage-movies" element={<ManageMovies />} /> */}
 
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminRouter>
+              <AdminDashboard />
+            </AdminRouter>
+          }
+        />
+        <Route
+          path="/admin/manage-users"
+          element={
+            <AdminRouter>
+              <ManageUsers />
+            </AdminRouter>
+          }
+        />
+        <Route
+          path="/admin/manage-movies"
+          element={
+            <AdminRouter>
+              <ManageMovies />
+            </AdminRouter>
+          }
+        />
+        <Route
+          path="/admin/manage-genres"
+          element={
+            <AdminRouter>
+              <ManageGenres />
+            </AdminRouter>
+          }
+        />
         {/* Profile Page */}
         <Route path="/Profile" element={<Profile />} />
       </Routes>
