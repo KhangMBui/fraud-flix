@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Plus } from "lucide-react";
 import Swal from "sweetalert2";
 import "./ManageMovies.css"; // Import the CSS file
 
 export default function ManageMovies() {
   const [movies, setMovies] = useState([]);
+  const [showAddMovieModal, setShowAddMovieModal] = useState(false);
   const [editingMovieId, setEditingMovieId] = useState(null);
   const [editedMovie, setEditedMovie] = useState({
     title: "",
@@ -31,6 +32,35 @@ export default function ManageMovies() {
       setMovies(res.data.movies);
     } catch (err) {
       console.error("Error fetching movies:", err);
+    }
+  };
+
+  const handleAddMovie = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.post(
+        "http://localhost:5000/api/admin/movies",
+        newGenre,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to the Authorization header
+          },
+        }
+      );
+      Swal.fire("Success", "Movie added successfully!", "success");
+      setShowAddMovieModal(false);
+      setNewMovie({
+        name: res.name,
+        description: res.description,
+        tmdbId: res.tmdbId,
+      });
+      fetchGenres();
+    } catch (err) {
+      Swal.fire(
+        "Error",
+        err.response?.data?.error || "Something went wrong",
+        "error"
+      );
     }
   };
 
@@ -149,6 +179,14 @@ export default function ManageMovies() {
               <th>Release Date</th>
               <th>Thumbnail</th>
               <th>Actions</th>
+              <th className="text-right">
+                <button
+                  onClick={() => setShowAddMovieModal(true)}
+                  className="add-button"
+                >
+                  <Plus size={20} className="text-green-600" />
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>

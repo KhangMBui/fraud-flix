@@ -10,7 +10,7 @@ exports.getMovies = async (req, res) => {
   try {
     const {
       page = 1,
-      limit = 1000,
+      limit = 10000,
       title,
       genreID,
       sortBy = 'releaseDate',
@@ -111,6 +111,50 @@ exports.updateMovie = async (req, res) => {
     res.status(200).json({
       message: "Content Updated!",
       movie: updateMovie
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
+exports.addMovie = async (req, res) => {
+  try {
+    const {
+      title,
+      description,
+      thumbnail,
+      releaseDate,
+    } = req.body;
+
+    // Validate title
+    if (!title || title.trim() === "") {
+      return res.status(400).json({ error: "Movie name is required." });
+    }
+
+    // Validate description length or content
+    if (description && description.length > 255) {
+      return res.status(400).json({ error: "Description is too long." });
+    }
+
+    // Check for duplicate movie name
+    const existingMovie = await Movie.findOne({
+      where: { title: title.trim() },
+    });
+
+    if (existingMovie) {
+      return res.status(409).json({ error: "Movie already exists." });
+    }
+
+    // Create new movie with name and description
+    const newMovie = await Movie.create({
+      title: title.trim(),
+      description: description?.trim() || "",
+      releaseDate: releaseDate || null,
+    });
+
+    res.status(201).json({
+      message: "Movie successfully created.",
+      movie: newMovie,
     });
   } catch (e) {
     res.status(500).json({ error: e.message });
