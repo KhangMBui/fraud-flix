@@ -1,4 +1,3 @@
-# Title Header (H1 header)
 # 🎬 Fraudflix
 
 Fraudflix is a Netflix-inspired web application built for educational purposes. While it doesn’t support video streaming due to copyright constraints, users can still enjoy the experience of browsing and searching for content, managing personal accounts, and navigating a genre-based homepage. Admin accounts provide additional functionality to manage users and content.
