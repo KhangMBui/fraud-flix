@@ -37,6 +37,7 @@ const AppRouter = () => {
         {/* Admin Dashboard */}
         <Route path="/admin/manage-users" element={<ManageUsers />} />
         <Route path="/admin/manage-genres" element={<ManageGenres />} />
+        <Route path="/admin/manage-movies" element={<ManageMovies />} />
 
         {/* Profile Page */}
         <Route path="/Profile" element={<Profile />} />

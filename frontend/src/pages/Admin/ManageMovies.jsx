@@ -229,10 +229,7 @@ return (
         <td>
         {editingMovieId === movie.id ? (
             <>
-            <button onClick={() => handleSave(movie.id)}>Save</button>
-            <button onClick={() => setEditingMovieId(null)}>
-            Cancel
-            </button>
+            <button className="save-button" onClick={() => handleSave(movie.id)}>Save</button>
             </>
         ) : (
             <>

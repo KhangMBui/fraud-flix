@@ -10,7 +10,7 @@ exports.getMovies = async (req, res) => {
   try {
     const {
       page = 1,
-      limit = 10,
+      limit = 1000,
       title,
       genreID,
       sortBy = 'releaseDate',
