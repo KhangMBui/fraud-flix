@@ -49,7 +49,7 @@ PORT=5000
 # Database
 DB_NAME=fraudflixdb
 DB_USER=postgres
-DB_PASSWORD=Maruko12345!
+DB_PASSWORD=YOUR_PASSWORD
 DB_HOST=localhost
 
 # Authentication Token
