@@ -1,7 +1,9 @@
 .admin-dashboard-container {
-  padding: 20px;
+  padding: 40px;
   max-width: 1000px;
   margin: 5vh auto;
+  background-color: #141414;
+  border-radius: 8px;
 }
 
 h2 {
