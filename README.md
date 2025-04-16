@@ -38,6 +38,41 @@ cd frontend
 npm install
 ```
 
+## Database
+### Install Postgres & Create a Server
+1. Windows
+- Download Postgres from [here](https://www.postgresql.org/download/windows/).
+- The executable application will have steps for creating a server.
+- Then in your command prompt:
+  `psql`
+  
+  `CREATE DATABASE <name>;`
+  
+  `CREATE USER <user> WITH ENCRYPTED PASSWORD <password>;`
+  
+  `GRANT ALL PRIVILEGES ON DATABASE <name> TO <name>;`
+  
+2. Unix
+- In your system terminal:
+  
+  `sudo apt install postgresql postgresql-contrib`
+
+  `sudo systemctl start postgresql`
+
+  `sudo systemctl enable postgresql`
+
+  `sudo -i -u postgres`
+
+  `psql`
+
+  `CREATE DATABASE <name>;`
+  
+  `CREATE USER <user> WITH ENCRYPTED PASSWORD <password>;`
+  
+  `GRANT ALL PRIVILEGES ON DATABASE <name> TO <name>;`
+
+  `\q`
+
 ## 🛠️ Environment Variables
 Fraudflix requires a .env files to be properly configured.
 
