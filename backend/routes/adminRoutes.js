@@ -22,5 +22,7 @@ router.delete("/movies/:id", adminMovieController.deleteMovie);
 router.get("/genres", adminGenreController.getGenres);
 router.get("/genres/:id", adminGenreController.getGenreByID);
 router.put("/genres/:id", adminGenreController.updateGenre);
+router.post("/genres", adminGenreController.addGenre);
+router.delete("/genres/:id", adminGenreController.deleteGenre);
 
 module.exports = router;

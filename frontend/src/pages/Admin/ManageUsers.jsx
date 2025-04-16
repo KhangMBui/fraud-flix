@@ -22,8 +22,6 @@ export default function ManageUsers() {
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem("token");
-      const decodedToken = JSON.parse(atob(token.split(".")[1]));
-      console.log(decodedToken);
       const res = await axios.get("http://localhost:5000/api/admin/dashboard", {
         headers: {
           Authorization: `Bearer ${token}`, // Add token to the Authorization header
