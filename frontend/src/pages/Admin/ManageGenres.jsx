@@ -180,7 +180,7 @@ export default function ManageGenres() {
                   onClick={() => setShowAddGenreModal(true)}
                   className="add-button"
                 >
-                  <Plus size={20} className="text-green-600" />
+                  <Plus size={20} />
                 </button>
               </th>
             </tr>

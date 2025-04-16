@@ -195,6 +195,10 @@ h2 {
   background-color: #ccc;
 }
 
+.add-button:hover {
+  cursor: pointer;
+}
+
 /* Animation for modal */
 @keyframes fadeInScale {
   from {

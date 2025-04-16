@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Plus } from "lucide-react";
 import Swal from "sweetalert2";
 import "./ManageMovies.css"; // Import the CSS file
 
 export default function ManageMovies() {
+  const [newMovie, setNewMovie] = useState({
+    title: "",
+    description: "",
+    releaseDate: "",
+    thumbnail: "",
+  });
   const [movies, setMovies] = useState([]);
+  const [showAddMovieModal, setShowAddMovieModal] = useState(false);
   const [editingMovieId, setEditingMovieId] = useState(null);
   const [editedMovie, setEditedMovie] = useState({
     title: "",
@@ -31,6 +36,36 @@ export default function ManageMovies() {
       setMovies(res.data.movies);
     } catch (err) {
       console.error("Error fetching movies:", err);
+    }
+  };
+
+  const handleAddMovie = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.post(
+        "http://localhost:5000/api/admin/movies",
+        newMovie,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to the Authorization header
+          },
+        }
+      );
+      Swal.fire("Success", "Movie added successfully!", "success");
+      setShowAddMovieModal(false);
+      setMovies({
+        title: res.title,
+        description: res.description,
+        releaseDate: res.releaseDate,
+        thumbnail: res.thumbnail,
+      });
+      fetchMovies();
+    } catch (err) {
+      Swal.fire(
+        "Error",
+        err.response?.data?.error || "Something went wrong",
+        "error"
+      );
     }
   };
 
@@ -149,6 +184,14 @@ export default function ManageMovies() {
               <th>Release Date</th>
               <th>Thumbnail</th>
               <th>Actions</th>
+              <th className="text-right">
+                <button
+                  onClick={() => setShowAddMovieModal(true)}
+                  className="add-button"
+                >
+                  <Plus size={20} />
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -161,6 +204,7 @@ export default function ManageMovies() {
                       name="title"
                       value={editedMovie.title}
                       onChange={handleChange}
+                      className="title-edit-input"
                     />
                   ) : (
                     movie.title
@@ -172,6 +216,7 @@ export default function ManageMovies() {
                       name="description"
                       value={editedMovie.description}
                       onChange={handleChange}
+                      className="description-edit-input"
                     />
                   ) : (
                     movie.description
@@ -184,6 +229,7 @@ export default function ManageMovies() {
                       name="releaseDate"
                       value={editedMovie.releaseDate}
                       onChange={handleChange}
+                      className="release-date-edit-input"
                     />
                   ) : (
                     new Date(movie.releaseDate).toLocaleDateString()
@@ -196,6 +242,7 @@ export default function ManageMovies() {
                       name="thumbnail"
                       value={editedMovie.thumbnail}
                       onChange={handleChange}
+                      className="thumbnail-edit-input"
                     />
                   ) : (
                     <img
@@ -208,8 +255,16 @@ export default function ManageMovies() {
                 <td>
                   {editingMovieId === movie.id ? (
                     <>
-                      <button onClick={() => handleSave(movie.id)}>Save</button>
-                      <button onClick={() => setEditingMovieId(null)}>
+                      <button
+                        className="save-button"
+                        onClick={() => handleSave(movie.id)}
+                      >
+                        Save
+                      </button>
+                      <button
+                        className="cancel-button"
+                        onClick={() => setEditingMovieId(null)}
+                      >
                         Cancel
                       </button>
                     </>
@@ -218,14 +273,14 @@ export default function ManageMovies() {
                       <button
                         className="icon-btn edit"
                         title="Edit"
-                        onClick={() => handleEdit(user)}
+                        onClick={() => handleEdit(movie)}
                       >
                         <Pencil size={16} />
                       </button>
                       <button
                         className="icon-btn delete"
                         title="Delete"
-                        onClick={() => handleDelete(user.id)}
+                        onClick={() => handleDelete(movie.id)}
                       >
                         <Trash2 size={16} />
                       </button>
@@ -235,6 +290,51 @@ export default function ManageMovies() {
               </tr>
             ))}
           </tbody>
+          {/* Modal to add a new genre */}
+          {showAddMovieModal && (
+            <div className="modal">
+              <div className="modal-content">
+                <h2 className="modal-title">Add New Movie</h2>
+                <input
+                  placeholder="Movie name"
+                  value={newMovie.title}
+                  onChange={(e) =>
+                    setNewMovie({ ...newMovie, title: e.target.value })
+                  }
+                  className="editInput"
+                />
+                <textarea
+                  placeholder="Movie Description"
+                  value={newMovie.description}
+                  onChange={(e) =>
+                    setNewMovie({ ...newMovie, description: e.target.value })
+                  }
+                  className="editInput"
+                />
+                <input
+                  type="date"
+                  value={
+                    typeof newMovie.releaseDate === "string"
+                      ? newMovie.releaseDate
+                      : ""
+                  }
+                  onChange={(e) =>
+                    setNewMovie({ ...newMovie, releaseDate: e.target.value })
+                  }
+                  className="editInput"
+                />
+                <button onClick={handleAddMovie} className="save-button">
+                  Add Movie
+                </button>
+                <button
+                  onClick={() => setShowAddMovieModal(false)}
+                  className="cancel-button"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
         </table>
       </div>
     </div>
