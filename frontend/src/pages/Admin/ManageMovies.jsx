@@ -8,7 +8,7 @@ export default function ManageMovies() {
   const [newMovie, setNewMovie] = useState({
     title: "",
     description: "",
-    releaseDate: Date.now,
+    releaseDate: "",
     thumbnail: "",
   });
   const [movies, setMovies] = useState([]);
@@ -189,7 +189,7 @@ export default function ManageMovies() {
                   onClick={() => setShowAddMovieModal(true)}
                   className="add-button"
                 >
-                  <Plus size={20} className="text-green-600" />
+                  <Plus size={20} />
                 </button>
               </th>
             </tr>
@@ -204,6 +204,7 @@ export default function ManageMovies() {
                       name="title"
                       value={editedMovie.title}
                       onChange={handleChange}
+                      className="title-edit-input"
                     />
                   ) : (
                     movie.title
@@ -215,6 +216,7 @@ export default function ManageMovies() {
                       name="description"
                       value={editedMovie.description}
                       onChange={handleChange}
+                      className="description-edit-input"
                     />
                   ) : (
                     movie.description
@@ -227,6 +229,7 @@ export default function ManageMovies() {
                       name="releaseDate"
                       value={editedMovie.releaseDate}
                       onChange={handleChange}
+                      className="release-date-edit-input"
                     />
                   ) : (
                     new Date(movie.releaseDate).toLocaleDateString()
@@ -239,6 +242,7 @@ export default function ManageMovies() {
                       name="thumbnail"
                       value={editedMovie.thumbnail}
                       onChange={handleChange}
+                      className="thumbnail-edit-input"
                     />
                   ) : (
                     <img
@@ -251,8 +255,16 @@ export default function ManageMovies() {
                 <td>
                   {editingMovieId === movie.id ? (
                     <>
-                      <button onClick={() => handleSave(movie.id)}>Save</button>
-                      <button onClick={() => setEditingMovieId(null)}>
+                      <button
+                        className="save-button"
+                        onClick={() => handleSave(movie.id)}
+                      >
+                        Save
+                      </button>
+                      <button
+                        className="cancel-button"
+                        onClick={() => setEditingMovieId(null)}
+                      >
                         Cancel
                       </button>
                     </>
@@ -284,11 +296,10 @@ export default function ManageMovies() {
               <div className="modal-content">
                 <h2 className="modal-title">Add New Movie</h2>
                 <input
-                  type="text"
                   placeholder="Movie name"
                   value={newMovie.title}
                   onChange={(e) =>
-                    setNewMovie({ ...newMovie, name: e.target.value })
+                    setNewMovie({ ...newMovie, title: e.target.value })
                   }
                   className="editInput"
                 />
@@ -300,16 +311,20 @@ export default function ManageMovies() {
                   }
                   className="editInput"
                 />
-                <textarea
-                  placeholder="tmdbId (Optional)"
-                  value={newMovie.tmdbId}
+                <input
+                  type="date"
+                  value={
+                    typeof newMovie.releaseDate === "string"
+                      ? newMovie.releaseDate
+                      : ""
+                  }
                   onChange={(e) =>
-                    setNewMovie({ ...newMovie, tmdbId: e.target.value })
+                    setNewMovie({ ...newMovie, releaseDate: e.target.value })
                   }
                   className="editInput"
                 />
                 <button onClick={handleAddMovie} className="save-button">
-                  Add Genre
+                  Add Movie
                 </button>
                 <button
                   onClick={() => setShowAddMovieModal(false)}
