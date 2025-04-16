@@ -6,7 +6,9 @@ import SearchPage from "../pages/Search/SearchPage";
 import MovieInfo from "../pages/MovieInfo/MovieInfo";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import ManageUsers from "../pages/Admin/ManageUsers";
+import ManageMovies from "../pages/Admin/ManageMovies";
 import Profile from "../pages/Profile/profile";
+import ManageGenres from "../pages/Admin/ManageGenres";
 
 const AdminRouter = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -44,6 +46,8 @@ const AppRouter = () => {
 
         {/* Admin User Management */}
         <Route path="/admin/manage-users" element={<ManageUsers />} />
+        <Route path="/admin/manage-genres" element={<ManageGenres />} />
+        <Route path="/admin/manage-movies" element={<ManageMovies />} />
 
         <Route
           path="/admin/dashboard"
