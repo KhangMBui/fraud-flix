@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
@@ -42,12 +42,41 @@ const AppRouter = () => {
         {/* Movie Info Page*/}
         <Route path="/movie/:id" element={<MovieInfo />} />
 
-        {/* Admin Dashboard */}
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-
         {/* Admin User Management */}
         <Route path="/admin/manage-users" element={<ManageUsers />} />
 
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminRouter>
+              <AdminDashboard />
+            </AdminRouter>
+          }
+        />
+        <Route
+          path="/admin/manage-users"
+          element={
+            <AdminRouter>
+              <ManageUsers />
+            </AdminRouter>
+          }
+        />
+        {/* <Route
+          path="/admin/manage-movies"
+          element={
+            <AdminRouter>
+              <ManageMovies />
+            </AdminRouter>
+          }
+        />
+        <Route
+          path="/admin/manage-genres"
+          element={
+            <AdminRouter>
+              <ManageGenres />
+            </AdminRouter>
+          }
+        /> */}
         {/* Profile Page */}
         <Route path="/Profile" element={<Profile />} />
       </Routes>
