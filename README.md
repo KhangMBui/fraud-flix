@@ -87,6 +87,7 @@ JWT_SECRET=<key>
 Enter your own credentials for each `DB_` field when creating your Postgres server.
 
 ## 🎞️ TMDb Integration & Database Setup
+**Note: Since we already included Movies500.json in the project directory, you do not need to follow these steps. This is purely for references.**
 
 Fraudflix uses the TMDb API to fetch popular movie and genre data. These are converted into JSON and then used to populate our PostgreSQL database.
 
