@@ -70,7 +70,7 @@ npm install
 Fraudflix requires a .env files to be properly configured.
 
 ### Root .env
-Create a .env file in the root directory:
+Create a .env file in the root directory OF THE BACKEND FOLDER:
 ``` bash
 PORT=5000
 
