@@ -1,5 +1,4 @@
 const { User, Movie, Genre, WatchHistory } = require("../models");
-const { Sequelize } = require("sequelize");
 
 /**
  * Retrieves user interaction statistics for the admin.
@@ -52,8 +51,8 @@ exports.getUsers = async (req, res) => {
  */
 exports.getUserById = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await User.findByPk(id, {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId, {
       attributes: ["id", "email", "username", "isAdmin"],
     });
     if (!user) {
@@ -70,24 +69,27 @@ exports.getUserById = async (req, res) => {
  * @param {*} req http request.
  * @param {*} res http response.
  */
-exports.updateUserType = async (req, res) => {
+exports.updateUser = async (req, res) => {
   try {
-    const { userID } = req.params;
-    const { isAdmin } = req.body;
-    // prevents a user with a standard role from promoting themselves to admin
-    if (userID === req.user.id) {
+    const userId = req.params.userId;
+    const { isAdmin, username, email } = req.body;
+    // Prevents a user with a standard role from promoting themselves to admin
+    if (userId === req.user.id) {
       return res
         .status(403)
         .json({ error: "Action Requires Admin Privileges!" });
     }
-    // find a user via id
-    const user = await User.findByPk(userID);
-    // throw an error if the user id does not exist
+    // Find a user via id
+    const user = await User.findByPk(userId);
+    // Throw an error if the user id does not exist
     if (!user) {
       return res.status(404).json({ error: "Could Not Find Requested User!" });
     }
-    // based on the status of the user the function is being called on, change their status to either admin or standard
+    // Based on the status of the user the function is being called on, change their status to either admin or standard
     user.isAdmin = !!isAdmin;
+    // Also update username and email if possible
+    if (username) user.username = username;
+    if (email) user.email = email;
     await user.save();
     res.status(200).json({
       message: `User ${
@@ -114,9 +116,10 @@ exports.updateUserType = async (req, res) => {
  */
 exports.deleteUser = async (req, res) => {
   try {
-    const { id } = req.params;
+    const userId = req.params.userId;
     // find a user via id
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(userId);
+    await user.destroy();
     if (!user) {
       return res.status(404).json({ error: "Could Not Find Requested User!" });
     }
