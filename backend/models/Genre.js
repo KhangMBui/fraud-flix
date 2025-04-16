@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       //Genre's tmdbId
       tmdbId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
 
