@@ -16,6 +16,7 @@ router.delete("/users/:userId", adminUserController.deleteUser);
 
 router.get("/movies", adminMovieController.getMovies);
 router.get("/movies/:id", adminMovieController.getMovieByID);
+router.post("/movies", adminMovieController.addMovie);
 router.put("/movies/:id", adminMovieController.updateMovie);
 router.delete("/movies/:id", adminMovieController.deleteMovie);
 

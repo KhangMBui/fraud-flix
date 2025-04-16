@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
 import { Pencil, Trash2, Plus } from "lucide-react";
 import Swal from "sweetalert2";
 import "./ManageMovies.css"; // Import the CSS file
 
 export default function ManageMovies() {
+  const [newMovie, setNewMovie] = useState({
+    title: "",
+    description: "",
+    releaseDate: Date.now,
+    thumbnail: "",
+  });
   const [movies, setMovies] = useState([]);
   const [showAddMovieModal, setShowAddMovieModal] = useState(false);
   const [editingMovieId, setEditingMovieId] = useState(null);
@@ -40,7 +44,7 @@ export default function ManageMovies() {
       const token = localStorage.getItem("token");
       const res = await axios.post(
         "http://localhost:5000/api/admin/movies",
-        newGenre,
+        newMovie,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Add token to the Authorization header
@@ -49,12 +53,13 @@ export default function ManageMovies() {
       );
       Swal.fire("Success", "Movie added successfully!", "success");
       setShowAddMovieModal(false);
-      setNewMovie({
-        name: res.name,
+      setMovies({
+        title: res.title,
         description: res.description,
-        tmdbId: res.tmdbId,
+        releaseDate: res.releaseDate,
+        thumbnail: res.thumbnail,
       });
-      fetchGenres();
+      fetchMovies();
     } catch (err) {
       Swal.fire(
         "Error",
@@ -256,14 +261,14 @@ export default function ManageMovies() {
                       <button
                         className="icon-btn edit"
                         title="Edit"
-                        onClick={() => handleEdit(user)}
+                        onClick={() => handleEdit(movie)}
                       >
                         <Pencil size={16} />
                       </button>
                       <button
                         className="icon-btn delete"
                         title="Delete"
-                        onClick={() => handleDelete(user.id)}
+                        onClick={() => handleDelete(movie.id)}
                       >
                         <Trash2 size={16} />
                       </button>
@@ -273,6 +278,48 @@ export default function ManageMovies() {
               </tr>
             ))}
           </tbody>
+          {/* Modal to add a new genre */}
+          {showAddMovieModal && (
+            <div className="modal">
+              <div className="modal-content">
+                <h2 className="modal-title">Add New Movie</h2>
+                <input
+                  type="text"
+                  placeholder="Movie name"
+                  value={newMovie.title}
+                  onChange={(e) =>
+                    setNewMovie({ ...newMovie, name: e.target.value })
+                  }
+                  className="editInput"
+                />
+                <textarea
+                  placeholder="Movie Description"
+                  value={newMovie.description}
+                  onChange={(e) =>
+                    setNewMovie({ ...newMovie, description: e.target.value })
+                  }
+                  className="editInput"
+                />
+                <textarea
+                  placeholder="tmdbId (Optional)"
+                  value={newMovie.tmdbId}
+                  onChange={(e) =>
+                    setNewMovie({ ...newMovie, tmdbId: e.target.value })
+                  }
+                  className="editInput"
+                />
+                <button onClick={handleAddMovie} className="save-button">
+                  Add Genre
+                </button>
+                <button
+                  onClick={() => setShowAddMovieModal(false)}
+                  className="cancel-button"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
         </table>
       </div>
     </div>

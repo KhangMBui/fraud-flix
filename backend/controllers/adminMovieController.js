@@ -10,11 +10,11 @@ exports.getMovies = async (req, res) => {
   try {
     const {
       page = 1,
-      limit = 10000,
+      limit = 100,
       title,
       genreID,
-      sortBy = 'releaseDate',
-      sortDesc = 'DESC'
+      sortBy = "releaseDate",
+      sortDesc = "DESC",
     } = req.query;
     // formatting options
     const format = (page - 1) * limit;
@@ -25,20 +25,20 @@ exports.getMovies = async (req, res) => {
     }
     // filter by movie genre
     if (genreID) {
-      filterBy.genreID = genreID; 
+      filterBy.genreID = genreID;
     }
     const { count, rows: movies } = await Movie.findAndCountAll({
       where: filterBy,
       include: [{ model: Genre }],
       sorting: [[sortBy, sortDesc]],
       limit: parseInt(limit),
-      format: parseInt(format)
+      format: parseInt(format),
     });
     res.status(200).json({
       count: count,
       pages: Math.ceil(count / limit),
       page: parseInt(page),
-      movies
+      movies,
     });
   } catch (e) {
     res.status(404).json({ error: e.message });
@@ -54,10 +54,12 @@ exports.getMovieByID = async (req, res) => {
   try {
     const { id } = req.params;
     const movie = await Movie.findByPk(id, {
-      include: [{ model: Genre }]
+      include: [{ model: Genre }],
     });
     if (!movie) {
-      return res.status(404).json({ error: "Could Not Find Requested Content!" });
+      return res
+        .status(404)
+        .json({ error: "Could Not Find Requested Content!" });
     }
     res.status(200).json(movie);
   } catch (e) {
@@ -83,12 +85,14 @@ exports.updateMovie = async (req, res) => {
       rating,
       genreID,
       type,
-      url
+      url,
     } = req.body;
     // retrieve movie by id
     const movie = await Movie.findByPk(id);
     if (!movie) {
-      return res.status(404).json({ error: "Could Not Find Requested Content!" });
+      return res
+        .status(404)
+        .json({ error: "Could Not Find Requested Content!" });
     }
 
     // field updates for selected content
@@ -106,11 +110,11 @@ exports.updateMovie = async (req, res) => {
     await movie.save();
     // get the now updated movie/show
     const updateMovie = await Movie.findByPk(id, {
-      include: [{ model: Genre }]
+      include: [{ model: Genre }],
     });
     res.status(200).json({
       message: "Content Updated!",
-      movie: updateMovie
+      movie: updateMovie,
     });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -119,12 +123,7 @@ exports.updateMovie = async (req, res) => {
 
 exports.addMovie = async (req, res) => {
   try {
-    const {
-      title,
-      description,
-      thumbnail,
-      releaseDate,
-    } = req.body;
+    const { title, description, thumbnail, releaseDate } = req.body;
 
     // Validate title
     if (!title || title.trim() === "") {
@@ -163,16 +162,18 @@ exports.addMovie = async (req, res) => {
 
 /**
  * Deletes selected content.
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
 exports.deleteMovie = async (req, res) => {
   try {
     const { id } = req.params;
     const movie = await Movie.findByPk(id);
     if (!movie) {
-      return res.status(404).json({ error: "Could Not Find Requested Content!" });
+      return res
+        .status(404)
+        .json({ error: "Could Not Find Requested Content!" });
     }
     await movie.destroy();
     res.status(200).json({ message: "Content Deleted!" });
