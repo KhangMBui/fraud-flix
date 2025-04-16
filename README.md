@@ -64,7 +64,7 @@ npm run dev
 ```
 ### Start the Frontend
 ```bash
-cd ../frontend
+cd frontend
 npm run dev
 ```
 The app should now be running on http://localhost:5173.
