@@ -239,14 +239,14 @@ return (
             <button
             className="icon-btn edit"
             title="Edit"
-            onClick={() => handleEdit(user)}
+            onClick={() => handleEdit(movie)}
             >
             <Pencil size={16} />
             </button>
             <button
             className="icon-btn delete"
             title="Delete"
-            onClick={() => handleDelete(user.id)}
+            onClick={() => handleDelete(movie.id)}
             >
             <Trash2 size={16} />
             </button>
