@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     // user's set username
     username: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
     },
 

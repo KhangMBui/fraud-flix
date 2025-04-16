@@ -87,6 +87,7 @@ function Login() {
             // Optionally store username/email if needed
             localStorage.setItem("username", response.data.user.username);
             console.log(localStorage);
+            console.log(localStorage.token);
             // Navigate to the home page after the success alert
             navigate("/home");
           });

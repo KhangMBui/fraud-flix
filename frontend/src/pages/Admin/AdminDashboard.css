@@ -71,3 +71,61 @@ h2 {
 .icon-btn.delete svg {
   color: #dc3545;
 }
+
+.email-edit-input {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.email-edit-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.username-edit-input {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.username-edit-input:focus {
+  border-color: #28a745;
+  outline: none;
+}
+
+.admin-edit-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #007bff; /* Works in modern browsers */
+  cursor: pointer;
+}
+.save-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 6px;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+.save-button:active {
+  transform: scale(0.98);
+}
