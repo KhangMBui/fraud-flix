@@ -47,15 +47,17 @@ Create a .env file in the root directory:
 PORT=5000
 
 # Database
-DB_NAME=fraudflixdb
-DB_USER=postgres
-DB_PASSWORD=YOUR_PASSWORD
+DB_NAME=<database_name>
+DB_USER=<user>
+DB_PASSWORD=<password>
 DB_HOST=localhost
 
 # Authentication Token
-JWT_SECRET=supersecretkeythatnobodyknows
+JWT_SECRET=<key>
 
 ```
+Enter your own credentials for each `DB_` field when creating your Postgres server.
+
 ## ▶️ Running the App
 ### Start the Backend
 ```bash
