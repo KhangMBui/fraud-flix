@@ -75,9 +75,9 @@ exports.updateMovie = async (req, res) => {
     const { id } = req.params;
     const {
       title,
-      desc,
-      thumb,
-      dateReleased,
+      description,
+      thumbnail,
+      releaseDate,
       length,
       director,
       rating,
@@ -93,9 +93,9 @@ exports.updateMovie = async (req, res) => {
 
     // field updates for selected content
     if (title !== undefined) movie.title = title;
-    if (desc !== undefined) movie.desc = desc;
-    if (thumb !== undefined) movie.thumb = thumb;
-    if (dateReleased !== undefined) movie.dateReleased = dateReleased;
+    if (description !== undefined) movie.description = description;
+    if (thumbnail !== undefined) movie.thumbnail = thumbnail;
+    if (releaseDate !== undefined) movie.releaseDate = releaseDate;
     if (length !== undefined) movie.length = length;
     if (director !== undefined) movie.director = director;
     if (rating !== undefined) movie.rating = rating;
@@ -106,7 +106,7 @@ exports.updateMovie = async (req, res) => {
     await movie.save();
     // get the now updated movie/show
     const updateMovie = await Movie.findByPk(id, {
-      include: [{ movel: Genre }]
+      include: [{ model: Genre }]
     });
     res.status(200).json({
       message: "Content Updated!",

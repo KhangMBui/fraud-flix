@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import SearchPage from "../pages/Search/SearchPage";
 import MovieInfo from "../pages/MovieInfo/MovieInfo";
 import ManageUsers from "../pages/Admin/ManageUsers";
+import ManageMovies from "../pages/Admin/ManageMovies";
 import Profile from "../pages/Profile/profile";
 import ManageGenres from "../pages/Admin/ManageGenres";
 
@@ -36,6 +37,7 @@ const AppRouter = () => {
         {/* Admin Dashboard */}
         <Route path="/admin/manage-users" element={<ManageUsers />} />
         <Route path="/admin/manage-genres" element={<ManageGenres />} />
+        <Route path="/admin/manage-movies" element={<ManageMovies />} />
 
         {/* Profile Page */}
         <Route path="/Profile" element={<Profile />} />
