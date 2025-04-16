@@ -33,7 +33,7 @@ const AppRouter = () => {
         <Route path="/movie/:id" element={<MovieInfo />} />
 
         {/* Admin Dashboard */}
-        <Route path="/admin/" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
         {/* Profile Page */}
         <Route path="/Profile" element={<Profile />} />
